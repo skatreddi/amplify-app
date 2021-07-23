@@ -1,0 +1,145 @@
+# this is an auto generated file. This will be overwritten
+mutation CreateVehicle(
+  $input: CreateVehicleInput!
+  $condition: ModelVehicleConditionInput
+) {
+  createVehicle(input: $input, condition: $condition) {
+    id
+    VIN
+    Manufacturer
+    maintainances {
+      items {
+        id
+        Type
+        vehicleID
+        createdAt
+        updatedAt
+        owner
+      }
+      nextToken
+    }
+    createdAt
+    updatedAt
+    owner
+  }
+}
+mutation UpdateVehicle(
+  $input: UpdateVehicleInput!
+  $condition: ModelVehicleConditionInput
+) {
+  updateVehicle(input: $input, condition: $condition) {
+    id
+    VIN
+    Manufacturer
+    maintainances {
+      items {
+        id
+        Type
+        vehicleID
+        createdAt
+        updatedAt
+        owner
+      }
+      nextToken
+    }
+    createdAt
+    updatedAt
+    owner
+  }
+}
+mutation DeleteVehicle(
+  $input: DeleteVehicleInput!
+  $condition: ModelVehicleConditionInput
+) {
+  deleteVehicle(input: $input, condition: $condition) {
+    id
+    VIN
+    Manufacturer
+    maintainances {
+      items {
+        id
+        Type
+        vehicleID
+        createdAt
+        updatedAt
+        owner
+      }
+      nextToken
+    }
+    createdAt
+    updatedAt
+    owner
+  }
+}
+mutation CreateMaintainance(
+  $input: CreateMaintainanceInput!
+  $condition: ModelMaintainanceConditionInput
+) {
+  createMaintainance(input: $input, condition: $condition) {
+    id
+    Type
+    vehicleID
+    vehicle {
+      id
+      VIN
+      Manufacturer
+      maintainances {
+        nextToken
+      }
+      createdAt
+      updatedAt
+      owner
+    }
+    createdAt
+    updatedAt
+    owner
+  }
+}
+mutation UpdateMaintainance(
+  $input: UpdateMaintainanceInput!
+  $condition: ModelMaintainanceConditionInput
+) {
+  updateMaintainance(input: $input, condition: $condition) {
+    id
+    Type
+    vehicleID
+    vehicle {
+      id
+      VIN
+      Manufacturer
+      maintainances {
+        nextToken
+      }
+      createdAt
+      updatedAt
+      owner
+    }
+    createdAt
+    updatedAt
+    owner
+  }
+}
+mutation DeleteMaintainance(
+  $input: DeleteMaintainanceInput!
+  $condition: ModelMaintainanceConditionInput
+) {
+  deleteMaintainance(input: $input, condition: $condition) {
+    id
+    Type
+    vehicleID
+    vehicle {
+      id
+      VIN
+      Manufacturer
+      maintainances {
+        nextToken
+      }
+      createdAt
+      updatedAt
+      owner
+    }
+    createdAt
+    updatedAt
+    owner
+  }
+}

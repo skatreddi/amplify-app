@@ -1,0 +1,88 @@
+# this is an auto generated file. This will be overwritten
+query GetVehicle($id: ID!) {
+  getVehicle(id: $id) {
+    id
+    VIN
+    Manufacturer
+    maintainances {
+      items {
+        id
+        Type
+        vehicleID
+        createdAt
+        updatedAt
+        owner
+      }
+      nextToken
+    }
+    createdAt
+    updatedAt
+    owner
+  }
+}
+query ListVehicles(
+  $filter: ModelVehicleFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listVehicles(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      VIN
+      Manufacturer
+      maintainances {
+        nextToken
+      }
+      createdAt
+      updatedAt
+      owner
+    }
+    nextToken
+  }
+}
+query GetMaintainance($id: ID!) {
+  getMaintainance(id: $id) {
+    id
+    Type
+    vehicleID
+    vehicle {
+      id
+      VIN
+      Manufacturer
+      maintainances {
+        nextToken
+      }
+      createdAt
+      updatedAt
+      owner
+    }
+    createdAt
+    updatedAt
+    owner
+  }
+}
+query ListMaintainances(
+  $filter: ModelMaintainanceFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listMaintainances(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      Type
+      vehicleID
+      vehicle {
+        id
+        VIN
+        Manufacturer
+        createdAt
+        updatedAt
+        owner
+      }
+      createdAt
+      updatedAt
+      owner
+    }
+    nextToken
+  }
+}

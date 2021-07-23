@@ -1,0 +1,24 @@
+<h2 *ngIf="editMode">Edit vehicle</h2>
+<h2 *ngIf="!editMode">Add a vehicle</h2>
+
+<form [formGroup]="form">
+    <div>
+        <mat-form-field [style.width.px]="256">
+            <mat-label><span>VIN</span></mat-label>
+            <input matInput type="string" formControlName="VIN">
+        </mat-form-field>
+    </div>
+
+    <div>
+        <mat-form-field [style.width.px]="256">
+            <mat-label><span>Manufacturer</span></mat-label>
+            <textarea matInput formControlName="Manufacturer"></textarea>
+        </mat-form-field>
+    </div>
+
+    <div class="buttonbar">
+        <button *ngIf="!editMode" mat-raised-button color="primary" (click)="add()">Add</button>
+        <button *ngIf="editMode" mat-raised-button color="warn" (click)="delete()">Delete</button>
+        <button *ngIf="editMode" mat-raised-button color="primary" (click)="update()">Update</button>
+    </div>
+</form>

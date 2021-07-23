@@ -1,0 +1,127 @@
+# this is an auto generated file. This will be overwritten
+subscription OnCreateVehicle($owner: String!) {
+  onCreateVehicle(owner: $owner) {
+    id
+    VIN
+    Manufacturer
+    maintainances {
+      items {
+        id
+        Type
+        vehicleID
+        createdAt
+        updatedAt
+        owner
+      }
+      nextToken
+    }
+    createdAt
+    updatedAt
+    owner
+  }
+}
+subscription OnUpdateVehicle($owner: String!) {
+  onUpdateVehicle(owner: $owner) {
+    id
+    VIN
+    Manufacturer
+    maintainances {
+      items {
+        id
+        Type
+        vehicleID
+        createdAt
+        updatedAt
+        owner
+      }
+      nextToken
+    }
+    createdAt
+    updatedAt
+    owner
+  }
+}
+subscription OnDeleteVehicle($owner: String!) {
+  onDeleteVehicle(owner: $owner) {
+    id
+    VIN
+    Manufacturer
+    maintainances {
+      items {
+        id
+        Type
+        vehicleID
+        createdAt
+        updatedAt
+        owner
+      }
+      nextToken
+    }
+    createdAt
+    updatedAt
+    owner
+  }
+}
+subscription OnCreateMaintainance($owner: String!) {
+  onCreateMaintainance(owner: $owner) {
+    id
+    Type
+    vehicleID
+    vehicle {
+      id
+      VIN
+      Manufacturer
+      maintainances {
+        nextToken
+      }
+      createdAt
+      updatedAt
+      owner
+    }
+    createdAt
+    updatedAt
+    owner
+  }
+}
+subscription OnUpdateMaintainance($owner: String!) {
+  onUpdateMaintainance(owner: $owner) {
+    id
+    Type
+    vehicleID
+    vehicle {
+      id
+      VIN
+      Manufacturer
+      maintainances {
+        nextToken
+      }
+      createdAt
+      updatedAt
+      owner
+    }
+    createdAt
+    updatedAt
+    owner
+  }
+}
+subscription OnDeleteMaintainance($owner: String!) {
+  onDeleteMaintainance(owner: $owner) {
+    id
+    Type
+    vehicleID
+    vehicle {
+      id
+      VIN
+      Manufacturer
+      maintainances {
+        nextToken
+      }
+      createdAt
+      updatedAt
+      owner
+    }
+    createdAt
+    updatedAt
+    owner
+  }
+}
