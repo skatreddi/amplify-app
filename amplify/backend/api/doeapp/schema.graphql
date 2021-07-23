@@ -1,15 +1,17 @@
-type Vehicle @model 
+type Vehicle 
+@model 
 @auth(rules: [{allow: owner}])
 {
   id: ID!
   VIN: String!
   Manufacturer: String!
-  maintainances: [Maintainance] @connection(keyName: "byMaintainance", fields: ["id"])
+  maintainances: [Maintainance] @connection(keyName: "byVehicle", fields: ["id"])
 }
 
-type Maintainance @model
+type Maintainance 
+@model
 @auth(rules: [{allow: owner}])
-@key(name: "byMaintainance", fields: ["vehicleID"]) {
+@key(name: "byVehicle", fields: ["vehicleID"]) {
   id: ID!
   Type: String!
   vehicleID: ID!
