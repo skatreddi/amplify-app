@@ -1,19 +1,39 @@
-type Vehicle 
-@model 
+type Vehicle @model 
 @auth(rules: [{allow: owner}])
 {
-  id: ID!
   VIN: String!
   Manufacturer: String!
-  maintainances: [Maintainance] @connection(keyName: "byVehicle", fields: ["id"])
+  ModelYear: String!
+  OdoMiles: Int
+  Region: String
+  Vocation: String
+  FleetName: String
+  AdditionalParameter: String
+  EngSerialNum: Int!
+  EngManufacturer: String!
+  EngModel: String!
+  EngModelYear: String!
+  FuelType: String
+  Displacement: Int
+  EngAdditionalParameter: String
+  TransmissonType: String!
+  TransManufacturer: String!
+  TransModel: String!
+  Hybrid: String
+  DOC: Boolean
+  TWC: Boolean
+  SCR: Boolean
+  PMTrap: Boolean
+  maintainances: [Maintainance] @connection(name: "VehicleMaintainances")
 }
 
-type Maintainance 
-@model
+type Maintainance @model
 @auth(rules: [{allow: owner}])
-@key(name: "byVehicle", fields: ["vehicleID"]) {
-  id: ID!
+{
+  MaintainanceID: ID!
   Type: String!
-  vehicleID: ID!
-  vehicle: Vehicle @connection(fields: ["vehicleID"])
+  System: String!
+  Component: String!
+  Comments: String!
+  vehicle: Vehicle @connection(name: "VehicleMaintainances")
 }

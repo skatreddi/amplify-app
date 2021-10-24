@@ -1,0 +1,15 @@
+.fill-remaining-space {
+    flex: 1 1 auto;
+}
+
+.footer-toolbar{
+    /* margin-top: 100px; */
+    bottom: 0;
+    left: 0;    
+    background: white;
+    color: #002b5c;
+    padding:10px;
+}
+mat-list-item{
+    font-size: 15px;
+} 

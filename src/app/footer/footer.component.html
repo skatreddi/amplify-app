@@ -1,0 +1,59 @@
+<!-- <mat-toolbar class="bgc">   
+    <mat-toolbar-row>
+      <span style="font-size: 18px;font-weight: bold;">Contact us:</span>
+      <span class="fill-remaining-space"></span>
+      <span style="font-size: 18px;font-weight: bold;">Services:</span>
+      <span class="fill-remaining-space"></span>
+      <span style="font-size: 18px;font-weight: bold;">Information:</span>
+    </mat-toolbar-row>
+    <mat-toolbar-row>
+      <span style="font-size: 15px;">123-4567-890</span>
+      <span class="fill-remaining-space"></span>
+      <a mat-button [routerLink]="['/faq']">FAQ</a>
+      <span class="fill-remaining-space"></span>
+      <a mat-button [routerLink]="['/about']">About WVU CAFEE</a>
+    </mat-toolbar-row>
+    <mat-toolbar-row>
+      <span style="font-size: 15px;">email address</span>
+      <span class="fill-remaining-space"></span>
+      <a mat-button [routerLink]="['/work']">Work with us</a>
+    </mat-toolbar-row>
+    <mat-toolbar-row>
+        <span class="fill-remaining-space"></span>
+        <a mat-button [routerLink]="['/privacy']">Privacy Policies</a>
+    </mat-toolbar-row>
+    <mat-toolbar-row>
+        <span class="fill-remaining-space"></span>
+        <a mat-button [routerLink]="['/privacy']">Terms & Conditions</a>
+    </mat-toolbar-row>
+</mat-toolbar> -->
+
+<mat-toolbar class="footer-toolbar">   
+    <mat-nav-list>
+        <a mat-list-item style="font-size: 18px; font-weight: bold;">Contact us</a>
+        <a mat-list-item> <mat-icon>person</mat-icon>Arvind Thiruvengadam</a>
+        <a mat-list-item> <mat-icon>phone_android</mat-icon>304-293-0805</a>
+        <a mat-list-item> 	<mat-icon> email</mat-icon>arvind.thiruvengadam@mail.wvu.edu</a>
+        <!-- <a mat-list-item></a> -->
+      </mat-nav-list>
+      <span class="fill-remaining-space"></span>
+      <mat-nav-list style="float:initial">
+        <a mat-list-item style="font-size: 18px; font-weight: bold;">Address</a>
+        <a mat-list-item><mat-icon>location_city</mat-icon> Center for Alternative Fuel Engines and Emissions </a>
+        <a mat-list-item> 1306 Evansdale Drive | PO Box 6106 </a>
+        <a mat-list-item> Morgantown, WV 26506-6106 </a>
+        <!-- <a mat-list-item></a>
+        <a mat-list-item></a> -->
+      </mat-nav-list>
+      <span class="fill-remaining-space"></span>
+      <mat-nav-list >
+        <a mat-list-item style="font-size: 18px; font-weight: bold;">Information</a>
+        <!-- <a mat-list-item [routerLink]="'/about'"> <mat-icon>info</mat-icon> About WVU CAFEE </a> -->
+        <a mat-list-item (click)="onNavigate()"> <mat-icon>info</mat-icon> About WVU CAFEE </a>
+        <!-- <a mat-list-item [routerLink]="'/work'"> <mat-icon>work</mat-icon> Work with us </a> -->
+        <a mat-list-item></a>
+        <a mat-list-item></a>
+        <!-- <a mat-list-item [routerLink]="'/privacy'"> Privacy Policy </a>
+        <a mat-list-item [routerLink]="'/tc'"> Terms & Conditions </a> -->
+      </mat-nav-list>
+</mat-toolbar>

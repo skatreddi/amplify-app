@@ -1,0 +1,31 @@
+  /* .float-my-children > * {
+    margin: 0 .5em;
+    min-height: 100%;
+    float:left;
+    margin-bottom: 10px;
+    margin-top: 10px;
+  } */
+  
+  .clearfix {
+    *zoom:1 
+  }
+  
+  .clearfix:before,
+  .clearfix:after {
+    content: " ";
+    display: table;
+  }
+  
+  .clearfix:after {
+    clear: both;
+  }
+
+  .text-display{
+    font-size: 18px;
+  }
+  
+  .img-display{
+    width: 45%;
+    padding: 1.5em;
+    /* float: left; */
+  }  

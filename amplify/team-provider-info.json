@@ -13,7 +13,8 @@
     },
     "categories": {
       "auth": {
-        "doeapp83016bf6": {}
+        "doeapp83016bf6": {},
+        "userPoolGroups": {}
       }
     }
   }

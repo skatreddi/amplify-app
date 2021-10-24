@@ -4,11 +4,35 @@ query GetVehicle($id: ID!) {
     id
     VIN
     Manufacturer
+    ModelYear
+    OdoMiles
+    Region
+    Vocation
+    FleetName
+    AdditionalParameter
+    EngSerialNum
+    EngManufacturer
+    EngModel
+    EngModelYear
+    FuelType
+    Displacement
+    EngAdditionalParameter
+    TransmissonType
+    TransManufacturer
+    TransModel
+    Hybrid
+    DOC
+    TWC
+    SCR
+    PMTrap
     maintainances {
       items {
         id
+        MaintainanceID
         Type
-        vehicleID
+        System
+        Component
+        Comments
         createdAt
         updatedAt
         owner
@@ -30,6 +54,27 @@ query ListVehicles(
       id
       VIN
       Manufacturer
+      ModelYear
+      OdoMiles
+      Region
+      Vocation
+      FleetName
+      AdditionalParameter
+      EngSerialNum
+      EngManufacturer
+      EngModel
+      EngModelYear
+      FuelType
+      Displacement
+      EngAdditionalParameter
+      TransmissonType
+      TransManufacturer
+      TransModel
+      Hybrid
+      DOC
+      TWC
+      SCR
+      PMTrap
       maintainances {
         nextToken
       }
@@ -43,12 +88,36 @@ query ListVehicles(
 query GetMaintainance($id: ID!) {
   getMaintainance(id: $id) {
     id
+    MaintainanceID
     Type
-    vehicleID
+    System
+    Component
+    Comments
     vehicle {
       id
       VIN
       Manufacturer
+      ModelYear
+      OdoMiles
+      Region
+      Vocation
+      FleetName
+      AdditionalParameter
+      EngSerialNum
+      EngManufacturer
+      EngModel
+      EngModelYear
+      FuelType
+      Displacement
+      EngAdditionalParameter
+      TransmissonType
+      TransManufacturer
+      TransModel
+      Hybrid
+      DOC
+      TWC
+      SCR
+      PMTrap
       maintainances {
         nextToken
       }
@@ -69,12 +138,36 @@ query ListMaintainances(
   listMaintainances(filter: $filter, limit: $limit, nextToken: $nextToken) {
     items {
       id
+      MaintainanceID
       Type
-      vehicleID
+      System
+      Component
+      Comments
       vehicle {
         id
         VIN
         Manufacturer
+        ModelYear
+        OdoMiles
+        Region
+        Vocation
+        FleetName
+        AdditionalParameter
+        EngSerialNum
+        EngManufacturer
+        EngModel
+        EngModelYear
+        FuelType
+        Displacement
+        EngAdditionalParameter
+        TransmissonType
+        TransManufacturer
+        TransModel
+        Hybrid
+        DOC
+        TWC
+        SCR
+        PMTrap
         createdAt
         updatedAt
         owner

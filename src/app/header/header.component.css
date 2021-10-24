@@ -1,0 +1,26 @@
+
+.fill-remaining-space {
+    flex: 1 1 auto;
+}
+.bgc{
+    background-color: #002b5c;
+    color:#ffae00;
+}
+.mat-button{
+    color:#ffae00
+}
+
+.flex {
+  display: flex;
+}
+
+.img-logo {
+  max-width: 25% !important;
+  /* margin-right: 30% !important; */
+  /* display: block; */
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 10px;
+  /* width: 50%; */
+}
+

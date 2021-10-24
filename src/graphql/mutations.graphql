@@ -7,11 +7,35 @@ mutation CreateVehicle(
     id
     VIN
     Manufacturer
+    ModelYear
+    OdoMiles
+    Region
+    Vocation
+    FleetName
+    AdditionalParameter
+    EngSerialNum
+    EngManufacturer
+    EngModel
+    EngModelYear
+    FuelType
+    Displacement
+    EngAdditionalParameter
+    TransmissonType
+    TransManufacturer
+    TransModel
+    Hybrid
+    DOC
+    TWC
+    SCR
+    PMTrap
     maintainances {
       items {
         id
+        MaintainanceID
         Type
-        vehicleID
+        System
+        Component
+        Comments
         createdAt
         updatedAt
         owner
@@ -31,11 +55,35 @@ mutation UpdateVehicle(
     id
     VIN
     Manufacturer
+    ModelYear
+    OdoMiles
+    Region
+    Vocation
+    FleetName
+    AdditionalParameter
+    EngSerialNum
+    EngManufacturer
+    EngModel
+    EngModelYear
+    FuelType
+    Displacement
+    EngAdditionalParameter
+    TransmissonType
+    TransManufacturer
+    TransModel
+    Hybrid
+    DOC
+    TWC
+    SCR
+    PMTrap
     maintainances {
       items {
         id
+        MaintainanceID
         Type
-        vehicleID
+        System
+        Component
+        Comments
         createdAt
         updatedAt
         owner
@@ -55,11 +103,35 @@ mutation DeleteVehicle(
     id
     VIN
     Manufacturer
+    ModelYear
+    OdoMiles
+    Region
+    Vocation
+    FleetName
+    AdditionalParameter
+    EngSerialNum
+    EngManufacturer
+    EngModel
+    EngModelYear
+    FuelType
+    Displacement
+    EngAdditionalParameter
+    TransmissonType
+    TransManufacturer
+    TransModel
+    Hybrid
+    DOC
+    TWC
+    SCR
+    PMTrap
     maintainances {
       items {
         id
+        MaintainanceID
         Type
-        vehicleID
+        System
+        Component
+        Comments
         createdAt
         updatedAt
         owner
@@ -77,12 +149,36 @@ mutation CreateMaintainance(
 ) {
   createMaintainance(input: $input, condition: $condition) {
     id
+    MaintainanceID
     Type
-    vehicleID
+    System
+    Component
+    Comments
     vehicle {
       id
       VIN
       Manufacturer
+      ModelYear
+      OdoMiles
+      Region
+      Vocation
+      FleetName
+      AdditionalParameter
+      EngSerialNum
+      EngManufacturer
+      EngModel
+      EngModelYear
+      FuelType
+      Displacement
+      EngAdditionalParameter
+      TransmissonType
+      TransManufacturer
+      TransModel
+      Hybrid
+      DOC
+      TWC
+      SCR
+      PMTrap
       maintainances {
         nextToken
       }
@@ -101,12 +197,36 @@ mutation UpdateMaintainance(
 ) {
   updateMaintainance(input: $input, condition: $condition) {
     id
+    MaintainanceID
     Type
-    vehicleID
+    System
+    Component
+    Comments
     vehicle {
       id
       VIN
       Manufacturer
+      ModelYear
+      OdoMiles
+      Region
+      Vocation
+      FleetName
+      AdditionalParameter
+      EngSerialNum
+      EngManufacturer
+      EngModel
+      EngModelYear
+      FuelType
+      Displacement
+      EngAdditionalParameter
+      TransmissonType
+      TransManufacturer
+      TransModel
+      Hybrid
+      DOC
+      TWC
+      SCR
+      PMTrap
       maintainances {
         nextToken
       }
@@ -125,12 +245,36 @@ mutation DeleteMaintainance(
 ) {
   deleteMaintainance(input: $input, condition: $condition) {
     id
+    MaintainanceID
     Type
-    vehicleID
+    System
+    Component
+    Comments
     vehicle {
       id
       VIN
       Manufacturer
+      ModelYear
+      OdoMiles
+      Region
+      Vocation
+      FleetName
+      AdditionalParameter
+      EngSerialNum
+      EngManufacturer
+      EngModel
+      EngModelYear
+      FuelType
+      Displacement
+      EngAdditionalParameter
+      TransmissonType
+      TransManufacturer
+      TransModel
+      Hybrid
+      DOC
+      TWC
+      SCR
+      PMTrap
       maintainances {
         nextToken
       }

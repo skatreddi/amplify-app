@@ -1,0 +1,10 @@
+.p1 {
+    /* font-family: "Times New Roman", Times, serif; */
+    font-size: 18px;
+  }
+
+  .img-sponsor{
+    width: 65%;
+    display: flex;
+    /* float: left; */
+  }

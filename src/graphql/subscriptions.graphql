@@ -4,11 +4,35 @@ subscription OnCreateVehicle($owner: String!) {
     id
     VIN
     Manufacturer
+    ModelYear
+    OdoMiles
+    Region
+    Vocation
+    FleetName
+    AdditionalParameter
+    EngSerialNum
+    EngManufacturer
+    EngModel
+    EngModelYear
+    FuelType
+    Displacement
+    EngAdditionalParameter
+    TransmissonType
+    TransManufacturer
+    TransModel
+    Hybrid
+    DOC
+    TWC
+    SCR
+    PMTrap
     maintainances {
       items {
         id
+        MaintainanceID
         Type
-        vehicleID
+        System
+        Component
+        Comments
         createdAt
         updatedAt
         owner
@@ -25,11 +49,35 @@ subscription OnUpdateVehicle($owner: String!) {
     id
     VIN
     Manufacturer
+    ModelYear
+    OdoMiles
+    Region
+    Vocation
+    FleetName
+    AdditionalParameter
+    EngSerialNum
+    EngManufacturer
+    EngModel
+    EngModelYear
+    FuelType
+    Displacement
+    EngAdditionalParameter
+    TransmissonType
+    TransManufacturer
+    TransModel
+    Hybrid
+    DOC
+    TWC
+    SCR
+    PMTrap
     maintainances {
       items {
         id
+        MaintainanceID
         Type
-        vehicleID
+        System
+        Component
+        Comments
         createdAt
         updatedAt
         owner
@@ -46,11 +94,35 @@ subscription OnDeleteVehicle($owner: String!) {
     id
     VIN
     Manufacturer
+    ModelYear
+    OdoMiles
+    Region
+    Vocation
+    FleetName
+    AdditionalParameter
+    EngSerialNum
+    EngManufacturer
+    EngModel
+    EngModelYear
+    FuelType
+    Displacement
+    EngAdditionalParameter
+    TransmissonType
+    TransManufacturer
+    TransModel
+    Hybrid
+    DOC
+    TWC
+    SCR
+    PMTrap
     maintainances {
       items {
         id
+        MaintainanceID
         Type
-        vehicleID
+        System
+        Component
+        Comments
         createdAt
         updatedAt
         owner
@@ -65,12 +137,36 @@ subscription OnDeleteVehicle($owner: String!) {
 subscription OnCreateMaintainance($owner: String!) {
   onCreateMaintainance(owner: $owner) {
     id
+    MaintainanceID
     Type
-    vehicleID
+    System
+    Component
+    Comments
     vehicle {
       id
       VIN
       Manufacturer
+      ModelYear
+      OdoMiles
+      Region
+      Vocation
+      FleetName
+      AdditionalParameter
+      EngSerialNum
+      EngManufacturer
+      EngModel
+      EngModelYear
+      FuelType
+      Displacement
+      EngAdditionalParameter
+      TransmissonType
+      TransManufacturer
+      TransModel
+      Hybrid
+      DOC
+      TWC
+      SCR
+      PMTrap
       maintainances {
         nextToken
       }
@@ -86,12 +182,36 @@ subscription OnCreateMaintainance($owner: String!) {
 subscription OnUpdateMaintainance($owner: String!) {
   onUpdateMaintainance(owner: $owner) {
     id
+    MaintainanceID
     Type
-    vehicleID
+    System
+    Component
+    Comments
     vehicle {
       id
       VIN
       Manufacturer
+      ModelYear
+      OdoMiles
+      Region
+      Vocation
+      FleetName
+      AdditionalParameter
+      EngSerialNum
+      EngManufacturer
+      EngModel
+      EngModelYear
+      FuelType
+      Displacement
+      EngAdditionalParameter
+      TransmissonType
+      TransManufacturer
+      TransModel
+      Hybrid
+      DOC
+      TWC
+      SCR
+      PMTrap
       maintainances {
         nextToken
       }
@@ -107,12 +227,36 @@ subscription OnUpdateMaintainance($owner: String!) {
 subscription OnDeleteMaintainance($owner: String!) {
   onDeleteMaintainance(owner: $owner) {
     id
+    MaintainanceID
     Type
-    vehicleID
+    System
+    Component
+    Comments
     vehicle {
       id
       VIN
       Manufacturer
+      ModelYear
+      OdoMiles
+      Region
+      Vocation
+      FleetName
+      AdditionalParameter
+      EngSerialNum
+      EngManufacturer
+      EngModel
+      EngModelYear
+      FuelType
+      Displacement
+      EngAdditionalParameter
+      TransmissonType
+      TransManufacturer
+      TransModel
+      Hybrid
+      DOC
+      TWC
+      SCR
+      PMTrap
       maintainances {
         nextToken
       }

@@ -9,15 +9,66 @@ export interface SubscriptionResponse<T> {
   value: GraphQLResult<T>;
 }
 
+export type __SubscriptionContainer = {
+  onCreateVehicle: OnCreateVehicleSubscription;
+  onUpdateVehicle: OnUpdateVehicleSubscription;
+  onDeleteVehicle: OnDeleteVehicleSubscription;
+  onCreateMaintainance: OnCreateMaintainanceSubscription;
+  onUpdateMaintainance: OnUpdateMaintainanceSubscription;
+  onDeleteMaintainance: OnDeleteMaintainanceSubscription;
+};
+
 export type CreateVehicleInput = {
   id?: string | null;
   VIN: string;
   Manufacturer: string;
+  ModelYear: string;
+  OdoMiles?: number | null;
+  Region?: string | null;
+  Vocation?: string | null;
+  FleetName?: string | null;
+  AdditionalParameter?: string | null;
+  EngSerialNum: number;
+  EngManufacturer: string;
+  EngModel: string;
+  EngModelYear: string;
+  FuelType?: string | null;
+  Displacement?: number | null;
+  EngAdditionalParameter?: string | null;
+  TransmissonType: string;
+  TransManufacturer: string;
+  TransModel: string;
+  Hybrid?: string | null;
+  DOC?: boolean | null;
+  TWC?: boolean | null;
+  SCR?: boolean | null;
+  PMTrap?: boolean | null;
 };
 
 export type ModelVehicleConditionInput = {
   VIN?: ModelStringInput | null;
   Manufacturer?: ModelStringInput | null;
+  ModelYear?: ModelStringInput | null;
+  OdoMiles?: ModelIntInput | null;
+  Region?: ModelStringInput | null;
+  Vocation?: ModelStringInput | null;
+  FleetName?: ModelStringInput | null;
+  AdditionalParameter?: ModelStringInput | null;
+  EngSerialNum?: ModelIntInput | null;
+  EngManufacturer?: ModelStringInput | null;
+  EngModel?: ModelStringInput | null;
+  EngModelYear?: ModelStringInput | null;
+  FuelType?: ModelStringInput | null;
+  Displacement?: ModelIntInput | null;
+  EngAdditionalParameter?: ModelStringInput | null;
+  TransmissonType?: ModelStringInput | null;
+  TransManufacturer?: ModelStringInput | null;
+  TransModel?: ModelStringInput | null;
+  Hybrid?: ModelStringInput | null;
+  DOC?: ModelBooleanInput | null;
+  TWC?: ModelBooleanInput | null;
+  SCR?: ModelBooleanInput | null;
+  PMTrap?: ModelBooleanInput | null;
   and?: Array<ModelVehicleConditionInput | null> | null;
   or?: Array<ModelVehicleConditionInput | null> | null;
   not?: ModelVehicleConditionInput | null;
@@ -62,15 +113,54 @@ export type ModelSizeInput = {
   between?: Array<number | null> | null;
 };
 
+export type ModelIntInput = {
+  ne?: number | null;
+  eq?: number | null;
+  le?: number | null;
+  lt?: number | null;
+  ge?: number | null;
+  gt?: number | null;
+  between?: Array<number | null> | null;
+  attributeExists?: boolean | null;
+  attributeType?: ModelAttributeTypes | null;
+};
+
+export type ModelBooleanInput = {
+  ne?: boolean | null;
+  eq?: boolean | null;
+  attributeExists?: boolean | null;
+  attributeType?: ModelAttributeTypes | null;
+};
+
 export type Vehicle = {
   __typename: "Vehicle";
   id: string;
   VIN: string;
   Manufacturer: string;
+  ModelYear: string;
+  OdoMiles?: number | null;
+  Region?: string | null;
+  Vocation?: string | null;
+  FleetName?: string | null;
+  AdditionalParameter?: string | null;
+  EngSerialNum: number;
+  EngManufacturer: string;
+  EngModel: string;
+  EngModelYear: string;
+  FuelType?: string | null;
+  Displacement?: number | null;
+  EngAdditionalParameter?: string | null;
+  TransmissonType: string;
+  TransManufacturer: string;
+  TransModel: string;
+  Hybrid?: string | null;
+  DOC?: boolean | null;
+  TWC?: boolean | null;
+  SCR?: boolean | null;
+  PMTrap?: boolean | null;
   maintainances?: ModelMaintainanceConnection | null;
   createdAt: string;
   updatedAt: string;
-  owner?: string | null;
 };
 
 export type ModelMaintainanceConnection = {
@@ -82,18 +172,40 @@ export type ModelMaintainanceConnection = {
 export type Maintainance = {
   __typename: "Maintainance";
   id: string;
+  MaintainanceID: string;
   Type: string;
-  vehicleID: string;
+  System: string;
+  Component: string;
+  Comments: string;
   vehicle?: Vehicle | null;
   createdAt: string;
   updatedAt: string;
-  owner?: string | null;
 };
 
 export type UpdateVehicleInput = {
-  id: string;
   VIN?: string | null;
   Manufacturer?: string | null;
+  ModelYear?: string | null;
+  OdoMiles?: number | null;
+  Region?: string | null;
+  Vocation?: string | null;
+  FleetName?: string | null;
+  AdditionalParameter?: string | null;
+  EngSerialNum?: number | null;
+  EngManufacturer?: string | null;
+  EngModel?: string | null;
+  EngModelYear?: string | null;
+  FuelType?: string | null;
+  Displacement?: number | null;
+  EngAdditionalParameter?: string | null;
+  TransmissonType?: string | null;
+  TransManufacturer?: string | null;
+  TransModel?: string | null;
+  Hybrid?: string | null;
+  DOC?: boolean | null;
+  TWC?: boolean | null;
+  SCR?: boolean | null;
+  PMTrap?: boolean | null;
 };
 
 export type DeleteVehicleInput = {
@@ -102,13 +214,20 @@ export type DeleteVehicleInput = {
 
 export type CreateMaintainanceInput = {
   id?: string | null;
+  MaintainanceID: string;
   Type: string;
-  vehicleID: string;
+  System: string;
+  Component: string;
+  Comments: string;
+  maintainanceVehicleId?: string | null;
 };
 
 export type ModelMaintainanceConditionInput = {
+  MaintainanceID?: ModelIDInput | null;
   Type?: ModelStringInput | null;
-  vehicleID?: ModelIDInput | null;
+  System?: ModelStringInput | null;
+  Component?: ModelStringInput | null;
+  Comments?: ModelStringInput | null;
   and?: Array<ModelMaintainanceConditionInput | null> | null;
   or?: Array<ModelMaintainanceConditionInput | null> | null;
   not?: ModelMaintainanceConditionInput | null;
@@ -131,9 +250,12 @@ export type ModelIDInput = {
 };
 
 export type UpdateMaintainanceInput = {
-  id: string;
+  MaintainanceID?: string | null;
   Type?: string | null;
-  vehicleID?: string | null;
+  System?: string | null;
+  Component?: string | null;
+  Comments?: string | null;
+  maintainanceVehicleId?: string | null;
 };
 
 export type DeleteMaintainanceInput = {
@@ -141,9 +263,29 @@ export type DeleteMaintainanceInput = {
 };
 
 export type ModelVehicleFilterInput = {
-  id?: ModelIDInput | null;
   VIN?: ModelStringInput | null;
   Manufacturer?: ModelStringInput | null;
+  ModelYear?: ModelStringInput | null;
+  OdoMiles?: ModelIntInput | null;
+  Region?: ModelStringInput | null;
+  Vocation?: ModelStringInput | null;
+  FleetName?: ModelStringInput | null;
+  AdditionalParameter?: ModelStringInput | null;
+  EngSerialNum?: ModelIntInput | null;
+  EngManufacturer?: ModelStringInput | null;
+  EngModel?: ModelStringInput | null;
+  EngModelYear?: ModelStringInput | null;
+  FuelType?: ModelStringInput | null;
+  Displacement?: ModelIntInput | null;
+  EngAdditionalParameter?: ModelStringInput | null;
+  TransmissonType?: ModelStringInput | null;
+  TransManufacturer?: ModelStringInput | null;
+  TransModel?: ModelStringInput | null;
+  Hybrid?: ModelStringInput | null;
+  DOC?: ModelBooleanInput | null;
+  TWC?: ModelBooleanInput | null;
+  SCR?: ModelBooleanInput | null;
+  PMTrap?: ModelBooleanInput | null;
   and?: Array<ModelVehicleFilterInput | null> | null;
   or?: Array<ModelVehicleFilterInput | null> | null;
   not?: ModelVehicleFilterInput | null;
@@ -156,9 +298,11 @@ export type ModelVehicleConnection = {
 };
 
 export type ModelMaintainanceFilterInput = {
-  id?: ModelIDInput | null;
+  MaintainanceID?: ModelIDInput | null;
   Type?: ModelStringInput | null;
-  vehicleID?: ModelIDInput | null;
+  System?: ModelStringInput | null;
+  Component?: ModelStringInput | null;
+  Comments?: ModelStringInput | null;
   and?: Array<ModelMaintainanceFilterInput | null> | null;
   or?: Array<ModelMaintainanceFilterInput | null> | null;
   not?: ModelMaintainanceFilterInput | null;
@@ -169,22 +313,44 @@ export type CreateVehicleMutation = {
   id: string;
   VIN: string;
   Manufacturer: string;
+  ModelYear: string;
+  OdoMiles?: number | null;
+  Region?: string | null;
+  Vocation?: string | null;
+  FleetName?: string | null;
+  AdditionalParameter?: string | null;
+  EngSerialNum: number;
+  EngManufacturer: string;
+  EngModel: string;
+  EngModelYear: string;
+  FuelType?: string | null;
+  Displacement?: number | null;
+  EngAdditionalParameter?: string | null;
+  TransmissonType: string;
+  TransManufacturer: string;
+  TransModel: string;
+  Hybrid?: string | null;
+  DOC?: boolean | null;
+  TWC?: boolean | null;
+  SCR?: boolean | null;
+  PMTrap?: boolean | null;
   maintainances?: {
     __typename: "ModelMaintainanceConnection";
     items?: Array<{
       __typename: "Maintainance";
       id: string;
+      MaintainanceID: string;
       Type: string;
-      vehicleID: string;
+      System: string;
+      Component: string;
+      Comments: string;
       createdAt: string;
       updatedAt: string;
-      owner?: string | null;
     } | null> | null;
     nextToken?: string | null;
   } | null;
   createdAt: string;
   updatedAt: string;
-  owner?: string | null;
 };
 
 export type UpdateVehicleMutation = {
@@ -192,22 +358,44 @@ export type UpdateVehicleMutation = {
   id: string;
   VIN: string;
   Manufacturer: string;
+  ModelYear: string;
+  OdoMiles?: number | null;
+  Region?: string | null;
+  Vocation?: string | null;
+  FleetName?: string | null;
+  AdditionalParameter?: string | null;
+  EngSerialNum: number;
+  EngManufacturer: string;
+  EngModel: string;
+  EngModelYear: string;
+  FuelType?: string | null;
+  Displacement?: number | null;
+  EngAdditionalParameter?: string | null;
+  TransmissonType: string;
+  TransManufacturer: string;
+  TransModel: string;
+  Hybrid?: string | null;
+  DOC?: boolean | null;
+  TWC?: boolean | null;
+  SCR?: boolean | null;
+  PMTrap?: boolean | null;
   maintainances?: {
     __typename: "ModelMaintainanceConnection";
     items?: Array<{
       __typename: "Maintainance";
       id: string;
+      MaintainanceID: string;
       Type: string;
-      vehicleID: string;
+      System: string;
+      Component: string;
+      Comments: string;
       createdAt: string;
-      updatedAt: string;
-      owner?: string | null;
+      updatedAt: string;      
     } | null> | null;
     nextToken?: string | null;
   } | null;
   createdAt: string;
   updatedAt: string;
-  owner?: string | null;
 };
 
 export type DeleteVehicleMutation = {
@@ -215,91 +403,179 @@ export type DeleteVehicleMutation = {
   id: string;
   VIN: string;
   Manufacturer: string;
+  ModelYear: string;
+  OdoMiles?: number | null;
+  Region?: string | null;
+  Vocation?: string | null;
+  FleetName?: string | null;
+  AdditionalParameter?: string | null;
+  EngSerialNum: number;
+  EngManufacturer: string;
+  EngModel: string;
+  EngModelYear: string;
+  FuelType?: string | null;
+  Displacement?: number | null;
+  EngAdditionalParameter?: string | null;
+  TransmissonType: string;
+  TransManufacturer: string;
+  TransModel: string;
+  Hybrid?: string | null;
+  DOC?: boolean | null;
+  TWC?: boolean | null;
+  SCR?: boolean | null;
+  PMTrap?: boolean | null;
   maintainances?: {
     __typename: "ModelMaintainanceConnection";
     items?: Array<{
       __typename: "Maintainance";
       id: string;
+      MaintainanceID: string;
       Type: string;
-      vehicleID: string;
+      System: string;
+      Component: string;
+      Comments: string;
       createdAt: string;
       updatedAt: string;
-      owner?: string | null;
     } | null> | null;
     nextToken?: string | null;
   } | null;
   createdAt: string;
   updatedAt: string;
-  owner?: string | null;
 };
 
 export type CreateMaintainanceMutation = {
   __typename: "Maintainance";
   id: string;
+  MaintainanceID: string;
   Type: string;
-  vehicleID: string;
+  System: string;
+  Component: string;
+  Comments: string;
   vehicle?: {
     __typename: "Vehicle";
     id: string;
     VIN: string;
     Manufacturer: string;
+    ModelYear: string;
+    OdoMiles?: number | null;
+    Region?: string | null;
+    Vocation?: string | null;
+    FleetName?: string | null;
+    AdditionalParameter?: string | null;
+    EngSerialNum: number;
+    EngManufacturer: string;
+    EngModel: string;
+    EngModelYear: string;
+    FuelType?: string | null;
+    Displacement?: number | null;
+    EngAdditionalParameter?: string | null;
+    TransmissonType: string;
+    TransManufacturer: string;
+    TransModel: string;
+    Hybrid?: string | null;
+    DOC?: boolean | null;
+    TWC?: boolean | null;
+    SCR?: boolean | null;
+    PMTrap?: boolean | null;
     maintainances?: {
       __typename: "ModelMaintainanceConnection";
       nextToken?: string | null;
     } | null;
     createdAt: string;
     updatedAt: string;
-    owner?: string | null;
   } | null;
   createdAt: string;
   updatedAt: string;
-  owner?: string | null;
 };
 
 export type UpdateMaintainanceMutation = {
   __typename: "Maintainance";
   id: string;
+  MaintainanceID: string;
   Type: string;
-  vehicleID: string;
+  System: string;
+  Component: string;
+  Comments: string;
   vehicle?: {
     __typename: "Vehicle";
     id: string;
     VIN: string;
     Manufacturer: string;
+    ModelYear: string;
+    OdoMiles?: number | null;
+    Region?: string | null;
+    Vocation?: string | null;
+    FleetName?: string | null;
+    AdditionalParameter?: string | null;
+    EngSerialNum: number;
+    EngManufacturer: string;
+    EngModel: string;
+    EngModelYear: string;
+    FuelType?: string | null;
+    Displacement?: number | null;
+    EngAdditionalParameter?: string | null;
+    TransmissonType: string;
+    TransManufacturer: string;
+    TransModel: string;
+    Hybrid?: string | null;
+    DOC?: boolean | null;
+    TWC?: boolean | null;
+    SCR?: boolean | null;
+    PMTrap?: boolean | null;
     maintainances?: {
       __typename: "ModelMaintainanceConnection";
       nextToken?: string | null;
     } | null;
     createdAt: string;
     updatedAt: string;
-    owner?: string | null;
   } | null;
   createdAt: string;
   updatedAt: string;
-  owner?: string | null;
 };
 
 export type DeleteMaintainanceMutation = {
   __typename: "Maintainance";
   id: string;
+  MaintainanceID: string;
   Type: string;
-  vehicleID: string;
+  System: string;
+  Component: string;
+  Comments: string;
   vehicle?: {
     __typename: "Vehicle";
     id: string;
     VIN: string;
     Manufacturer: string;
+    ModelYear: string;
+    OdoMiles?: number | null;
+    Region?: string | null;
+    Vocation?: string | null;
+    FleetName?: string | null;
+    AdditionalParameter?: string | null;
+    EngSerialNum: number;
+    EngManufacturer: string;
+    EngModel: string;
+    EngModelYear: string;
+    FuelType?: string | null;
+    Displacement?: number | null;
+    EngAdditionalParameter?: string | null;
+    TransmissonType: string;
+    TransManufacturer: string;
+    TransModel: string;
+    Hybrid?: string | null;
+    DOC?: boolean | null;
+    TWC?: boolean | null;
+    SCR?: boolean | null;
+    PMTrap?: boolean | null;
     maintainances?: {
       __typename: "ModelMaintainanceConnection";
       nextToken?: string | null;
     } | null;
     createdAt: string;
     updatedAt: string;
-    owner?: string | null;
   } | null;
   createdAt: string;
   updatedAt: string;
-  owner?: string | null;
 };
 
 export type GetVehicleQuery = {
@@ -307,22 +583,44 @@ export type GetVehicleQuery = {
   id: string;
   VIN: string;
   Manufacturer: string;
+  ModelYear: string;
+  OdoMiles?: number | null;
+  Region?: string | null;
+  Vocation?: string | null;
+  FleetName?: string | null;
+  AdditionalParameter?: string | null;
+  EngSerialNum: number;
+  EngManufacturer: string;
+  EngModel: string;
+  EngModelYear: string;
+  FuelType?: string | null;
+  Displacement?: number | null;
+  EngAdditionalParameter?: string | null;
+  TransmissonType: string;
+  TransManufacturer: string;
+  TransModel: string;
+  Hybrid?: string | null;
+  DOC?: boolean | null;
+  TWC?: boolean | null;
+  SCR?: boolean | null;
+  PMTrap?: boolean | null;
   maintainances?: {
     __typename: "ModelMaintainanceConnection";
     items?: Array<{
       __typename: "Maintainance";
       id: string;
+      MaintainanceID: string;
       Type: string;
-      vehicleID: string;
+      System: string;
+      Component: string;
+      Comments: string;
       createdAt: string;
       updatedAt: string;
-      owner?: string | null;
     } | null> | null;
     nextToken?: string | null;
   } | null;
   createdAt: string;
   updatedAt: string;
-  owner?: string | null;
 };
 
 export type ListVehiclesQuery = {
@@ -332,13 +630,33 @@ export type ListVehiclesQuery = {
     id: string;
     VIN: string;
     Manufacturer: string;
+    ModelYear: string;
+    OdoMiles?: number | null;
+    Region?: string | null;
+    Vocation?: string | null;
+    FleetName?: string | null;
+    AdditionalParameter?: string | null;
+    EngSerialNum: number;
+    EngManufacturer: string;
+    EngModel: string;
+    EngModelYear: string;
+    FuelType?: string | null;
+    Displacement?: number | null;
+    EngAdditionalParameter?: string | null;
+    TransmissonType: string;
+    TransManufacturer: string;
+    TransModel: string;
+    Hybrid?: string | null;
+    DOC?: boolean | null;
+    TWC?: boolean | null;
+    SCR?: boolean | null;
+    PMTrap?: boolean | null;
     maintainances?: {
       __typename: "ModelMaintainanceConnection";
       nextToken?: string | null;
     } | null;
     createdAt: string;
     updatedAt: string;
-    owner?: string | null;
   } | null> | null;
   nextToken?: string | null;
 };
@@ -346,24 +664,46 @@ export type ListVehiclesQuery = {
 export type GetMaintainanceQuery = {
   __typename: "Maintainance";
   id: string;
+  MaintainanceID: string;
   Type: string;
-  vehicleID: string;
+  System: string;
+  Component: string;
+  Comments: string;
   vehicle?: {
     __typename: "Vehicle";
     id: string;
     VIN: string;
     Manufacturer: string;
+    ModelYear: string;
+    OdoMiles?: number | null;
+    Region?: string | null;
+    Vocation?: string | null;
+    FleetName?: string | null;
+    AdditionalParameter?: string | null;
+    EngSerialNum: number;
+    EngManufacturer: string;
+    EngModel: string;
+    EngModelYear: string;
+    FuelType?: string | null;
+    Displacement?: number | null;
+    EngAdditionalParameter?: string | null;
+    TransmissonType: string;
+    TransManufacturer: string;
+    TransModel: string;
+    Hybrid?: string | null;
+    DOC?: boolean | null;
+    TWC?: boolean | null;
+    SCR?: boolean | null;
+    PMTrap?: boolean | null;
     maintainances?: {
       __typename: "ModelMaintainanceConnection";
       nextToken?: string | null;
     } | null;
     createdAt: string;
     updatedAt: string;
-    owner?: string | null;
   } | null;
   createdAt: string;
   updatedAt: string;
-  owner?: string | null;
 };
 
 export type ListMaintainancesQuery = {
@@ -371,20 +711,42 @@ export type ListMaintainancesQuery = {
   items?: Array<{
     __typename: "Maintainance";
     id: string;
+    MaintainanceID: string;
     Type: string;
-    vehicleID: string;
+    System: string;
+    Component: string;
+    Comments: string;
     vehicle?: {
       __typename: "Vehicle";
       id: string;
       VIN: string;
       Manufacturer: string;
+      ModelYear: string;
+      OdoMiles?: number | null;
+      Region?: string | null;
+      Vocation?: string | null;
+      FleetName?: string | null;
+      AdditionalParameter?: string | null;
+      EngSerialNum: number;
+      EngManufacturer: string;
+      EngModel: string;
+      EngModelYear: string;
+      FuelType?: string | null;
+      Displacement?: number | null;
+      EngAdditionalParameter?: string | null;
+      TransmissonType: string;
+      TransManufacturer: string;
+      TransModel: string;
+      Hybrid?: string | null;
+      DOC?: boolean | null;
+      TWC?: boolean | null;
+      SCR?: boolean | null;
+      PMTrap?: boolean | null;
       createdAt: string;
       updatedAt: string;
-      owner?: string | null;
     } | null;
     createdAt: string;
     updatedAt: string;
-    owner?: string | null;
   } | null> | null;
   nextToken?: string | null;
 };
@@ -394,22 +756,44 @@ export type OnCreateVehicleSubscription = {
   id: string;
   VIN: string;
   Manufacturer: string;
+  ModelYear: string;
+  OdoMiles?: number | null;
+  Region?: string | null;
+  Vocation?: string | null;
+  FleetName?: string | null;
+  AdditionalParameter?: string | null;
+  EngSerialNum: number;
+  EngManufacturer: string;
+  EngModel: string;
+  EngModelYear: string;
+  FuelType?: string | null;
+  Displacement?: number | null;
+  EngAdditionalParameter?: string | null;
+  TransmissonType: string;
+  TransManufacturer: string;
+  TransModel: string;
+  Hybrid?: string | null;
+  DOC?: boolean | null;
+  TWC?: boolean | null;
+  SCR?: boolean | null;
+  PMTrap?: boolean | null;
   maintainances?: {
     __typename: "ModelMaintainanceConnection";
     items?: Array<{
       __typename: "Maintainance";
       id: string;
+      MaintainanceID: string;
       Type: string;
-      vehicleID: string;
+      System: string;
+      Component: string;
+      Comments: string;
       createdAt: string;
       updatedAt: string;
-      owner?: string | null;
     } | null> | null;
     nextToken?: string | null;
   } | null;
   createdAt: string;
   updatedAt: string;
-  owner?: string | null;
 };
 
 export type OnUpdateVehicleSubscription = {
@@ -417,22 +801,44 @@ export type OnUpdateVehicleSubscription = {
   id: string;
   VIN: string;
   Manufacturer: string;
+  ModelYear: string;
+  OdoMiles?: number | null;
+  Region?: string | null;
+  Vocation?: string | null;
+  FleetName?: string | null;
+  AdditionalParameter?: string | null;
+  EngSerialNum: number;
+  EngManufacturer: string;
+  EngModel: string;
+  EngModelYear: string;
+  FuelType?: string | null;
+  Displacement?: number | null;
+  EngAdditionalParameter?: string | null;
+  TransmissonType: string;
+  TransManufacturer: string;
+  TransModel: string;
+  Hybrid?: string | null;
+  DOC?: boolean | null;
+  TWC?: boolean | null;
+  SCR?: boolean | null;
+  PMTrap?: boolean | null;
   maintainances?: {
     __typename: "ModelMaintainanceConnection";
     items?: Array<{
       __typename: "Maintainance";
       id: string;
+      MaintainanceID: string;
       Type: string;
-      vehicleID: string;
+      System: string;
+      Component: string;
+      Comments: string;
       createdAt: string;
       updatedAt: string;
-      owner?: string | null;
     } | null> | null;
     nextToken?: string | null;
   } | null;
   createdAt: string;
   updatedAt: string;
-  owner?: string | null;
 };
 
 export type OnDeleteVehicleSubscription = {
@@ -440,91 +846,179 @@ export type OnDeleteVehicleSubscription = {
   id: string;
   VIN: string;
   Manufacturer: string;
+  ModelYear: string;
+  OdoMiles?: number | null;
+  Region?: string | null;
+  Vocation?: string | null;
+  FleetName?: string | null;
+  AdditionalParameter?: string | null;
+  EngSerialNum: number;
+  EngManufacturer: string;
+  EngModel: string;
+  EngModelYear: string;
+  FuelType?: string | null;
+  Displacement?: number | null;
+  EngAdditionalParameter?: string | null;
+  TransmissonType: string;
+  TransManufacturer: string;
+  TransModel: string;
+  Hybrid?: string | null;
+  DOC?: boolean | null;
+  TWC?: boolean | null;
+  SCR?: boolean | null;
+  PMTrap?: boolean | null;
   maintainances?: {
     __typename: "ModelMaintainanceConnection";
     items?: Array<{
       __typename: "Maintainance";
       id: string;
+      MaintainanceID: string;
       Type: string;
-      vehicleID: string;
+      System: string;
+      Component: string;
+      Comments: string;
       createdAt: string;
       updatedAt: string;
-      owner?: string | null;
     } | null> | null;
     nextToken?: string | null;
   } | null;
   createdAt: string;
   updatedAt: string;
-  owner?: string | null;
 };
 
 export type OnCreateMaintainanceSubscription = {
   __typename: "Maintainance";
   id: string;
+  MaintainanceID: string;
   Type: string;
-  vehicleID: string;
+  System: string;
+  Component: string;
+  Comments: string;
   vehicle?: {
     __typename: "Vehicle";
     id: string;
     VIN: string;
     Manufacturer: string;
+    ModelYear: string;
+    OdoMiles?: number | null;
+    Region?: string | null;
+    Vocation?: string | null;
+    FleetName?: string | null;
+    AdditionalParameter?: string | null;
+    EngSerialNum: number;
+    EngManufacturer: string;
+    EngModel: string;
+    EngModelYear: string;
+    FuelType?: string | null;
+    Displacement?: number | null;
+    EngAdditionalParameter?: string | null;
+    TransmissonType: string;
+    TransManufacturer: string;
+    TransModel: string;
+    Hybrid?: string | null;
+    DOC?: boolean | null;
+    TWC?: boolean | null;
+    SCR?: boolean | null;
+    PMTrap?: boolean | null;
     maintainances?: {
       __typename: "ModelMaintainanceConnection";
       nextToken?: string | null;
     } | null;
     createdAt: string;
     updatedAt: string;
-    owner?: string | null;
   } | null;
   createdAt: string;
   updatedAt: string;
-  owner?: string | null;
 };
 
 export type OnUpdateMaintainanceSubscription = {
   __typename: "Maintainance";
   id: string;
+  MaintainanceID: string;
   Type: string;
-  vehicleID: string;
+  System: string;
+  Component: string;
+  Comments: string;
   vehicle?: {
     __typename: "Vehicle";
     id: string;
     VIN: string;
     Manufacturer: string;
+    ModelYear: string;
+    OdoMiles?: number | null;
+    Region?: string | null;
+    Vocation?: string | null;
+    FleetName?: string | null;
+    AdditionalParameter?: string | null;
+    EngSerialNum: number;
+    EngManufacturer: string;
+    EngModel: string;
+    EngModelYear: string;
+    FuelType?: string | null;
+    Displacement?: number | null;
+    EngAdditionalParameter?: string | null;
+    TransmissonType: string;
+    TransManufacturer: string;
+    TransModel: string;
+    Hybrid?: string | null;
+    DOC?: boolean | null;
+    TWC?: boolean | null;
+    SCR?: boolean | null;
+    PMTrap?: boolean | null;
     maintainances?: {
       __typename: "ModelMaintainanceConnection";
       nextToken?: string | null;
     } | null;
     createdAt: string;
     updatedAt: string;
-    owner?: string | null;
   } | null;
   createdAt: string;
   updatedAt: string;
-  owner?: string | null;
 };
 
 export type OnDeleteMaintainanceSubscription = {
   __typename: "Maintainance";
   id: string;
+  MaintainanceID: string;
   Type: string;
-  vehicleID: string;
+  System: string;
+  Component: string;
+  Comments: string;
   vehicle?: {
     __typename: "Vehicle";
     id: string;
     VIN: string;
     Manufacturer: string;
+    ModelYear: string;
+    OdoMiles?: number | null;
+    Region?: string | null;
+    Vocation?: string | null;
+    FleetName?: string | null;
+    AdditionalParameter?: string | null;
+    EngSerialNum: number;
+    EngManufacturer: string;
+    EngModel: string;
+    EngModelYear: string;
+    FuelType?: string | null;
+    Displacement?: number | null;
+    EngAdditionalParameter?: string | null;
+    TransmissonType: string;
+    TransManufacturer: string;
+    TransModel: string;
+    Hybrid?: string | null;
+    DOC?: boolean | null;
+    TWC?: boolean | null;
+    SCR?: boolean | null;
+    PMTrap?: boolean | null;
     maintainances?: {
       __typename: "ModelMaintainanceConnection";
       nextToken?: string | null;
     } | null;
     createdAt: string;
     updatedAt: string;
-    owner?: string | null;
   } | null;
   createdAt: string;
   updatedAt: string;
-  owner?: string | null;
 };
 
 @Injectable({
@@ -541,22 +1035,44 @@ export class APIService {
           id
           VIN
           Manufacturer
+          ModelYear
+          OdoMiles
+          Region
+          Vocation
+          FleetName
+          AdditionalParameter
+          EngSerialNum
+          EngManufacturer
+          EngModel
+          EngModelYear
+          FuelType
+          Displacement
+          EngAdditionalParameter
+          TransmissonType
+          TransManufacturer
+          TransModel
+          Hybrid
+          DOC
+          TWC
+          SCR
+          PMTrap
           maintainances {
             __typename
             items {
               __typename
               id
+              MaintainanceID
               Type
-              vehicleID
+              System
+              Component
+              Comments
               createdAt
               updatedAt
-              owner
             }
             nextToken
           }
           createdAt
           updatedAt
-          owner
         }
       }`;
     const gqlAPIServiceArguments: any = {
@@ -580,22 +1096,44 @@ export class APIService {
           id
           VIN
           Manufacturer
+          ModelYear
+          OdoMiles
+          Region
+          Vocation
+          FleetName
+          AdditionalParameter
+          EngSerialNum
+          EngManufacturer
+          EngModel
+          EngModelYear
+          FuelType
+          Displacement
+          EngAdditionalParameter
+          TransmissonType
+          TransManufacturer
+          TransModel
+          Hybrid
+          DOC
+          TWC
+          SCR
+          PMTrap
           maintainances {
             __typename
             items {
               __typename
               id
+              MaintainanceID
               Type
-              vehicleID
+              System
+              Component
+              Comments
               createdAt
               updatedAt
-              owner
             }
             nextToken
           }
           createdAt
           updatedAt
-          owner
         }
       }`;
     const gqlAPIServiceArguments: any = {
@@ -619,22 +1157,44 @@ export class APIService {
           id
           VIN
           Manufacturer
+          ModelYear
+          OdoMiles
+          Region
+          Vocation
+          FleetName
+          AdditionalParameter
+          EngSerialNum
+          EngManufacturer
+          EngModel
+          EngModelYear
+          FuelType
+          Displacement
+          EngAdditionalParameter
+          TransmissonType
+          TransManufacturer
+          TransModel
+          Hybrid
+          DOC
+          TWC
+          SCR
+          PMTrap
           maintainances {
             __typename
             items {
               __typename
               id
+              MaintainanceID
               Type
-              vehicleID
+              System
+              Component
+              Comments
               createdAt
               updatedAt
-              owner
             }
             nextToken
           }
           createdAt
           updatedAt
-          owner
         }
       }`;
     const gqlAPIServiceArguments: any = {
@@ -656,24 +1216,46 @@ export class APIService {
         createMaintainance(input: $input, condition: $condition) {
           __typename
           id
+          MaintainanceID
           Type
-          vehicleID
+          System
+          Component
+          Comments
           vehicle {
             __typename
             id
             VIN
             Manufacturer
+            ModelYear
+            OdoMiles
+            Region
+            Vocation
+            FleetName
+            AdditionalParameter
+            EngSerialNum
+            EngManufacturer
+            EngModel
+            EngModelYear
+            FuelType
+            Displacement
+            EngAdditionalParameter
+            TransmissonType
+            TransManufacturer
+            TransModel
+            Hybrid
+            DOC
+            TWC
+            SCR
+            PMTrap
             maintainances {
               __typename
               nextToken
             }
             createdAt
             updatedAt
-            owner
           }
           createdAt
           updatedAt
-          owner
         }
       }`;
     const gqlAPIServiceArguments: any = {
@@ -695,24 +1277,46 @@ export class APIService {
         updateMaintainance(input: $input, condition: $condition) {
           __typename
           id
+          MaintainanceID
           Type
-          vehicleID
+          System
+          Component
+          Comments
           vehicle {
             __typename
             id
             VIN
             Manufacturer
+            ModelYear
+            OdoMiles
+            Region
+            Vocation
+            FleetName
+            AdditionalParameter
+            EngSerialNum
+            EngManufacturer
+            EngModel
+            EngModelYear
+            FuelType
+            Displacement
+            EngAdditionalParameter
+            TransmissonType
+            TransManufacturer
+            TransModel
+            Hybrid
+            DOC
+            TWC
+            SCR
+            PMTrap
             maintainances {
               __typename
               nextToken
             }
             createdAt
             updatedAt
-            owner
           }
           createdAt
           updatedAt
-          owner
         }
       }`;
     const gqlAPIServiceArguments: any = {
@@ -734,24 +1338,46 @@ export class APIService {
         deleteMaintainance(input: $input, condition: $condition) {
           __typename
           id
+          MaintainanceID
           Type
-          vehicleID
+          System
+          Component
+          Comments
           vehicle {
             __typename
             id
             VIN
             Manufacturer
+            ModelYear
+            OdoMiles
+            Region
+            Vocation
+            FleetName
+            AdditionalParameter
+            EngSerialNum
+            EngManufacturer
+            EngModel
+            EngModelYear
+            FuelType
+            Displacement
+            EngAdditionalParameter
+            TransmissonType
+            TransManufacturer
+            TransModel
+            Hybrid
+            DOC
+            TWC
+            SCR
+            PMTrap
             maintainances {
               __typename
               nextToken
             }
             createdAt
             updatedAt
-            owner
           }
           createdAt
           updatedAt
-          owner
         }
       }`;
     const gqlAPIServiceArguments: any = {
@@ -772,22 +1398,44 @@ export class APIService {
           id
           VIN
           Manufacturer
+          ModelYear
+          OdoMiles
+          Region
+          Vocation
+          FleetName
+          AdditionalParameter
+          EngSerialNum
+          EngManufacturer
+          EngModel
+          EngModelYear
+          FuelType
+          Displacement
+          EngAdditionalParameter
+          TransmissonType
+          TransManufacturer
+          TransModel
+          Hybrid
+          DOC
+          TWC
+          SCR
+          PMTrap
           maintainances {
             __typename
             items {
               __typename
               id
+              MaintainanceID
               Type
-              vehicleID
+              System
+              Component
+              Comments
               createdAt
               updatedAt
-              owner
             }
             nextToken
           }
           createdAt
           updatedAt
-          owner
         }
       }`;
     const gqlAPIServiceArguments: any = {
@@ -811,13 +1459,33 @@ export class APIService {
             id
             VIN
             Manufacturer
+            ModelYear
+            OdoMiles
+            Region
+            Vocation
+            FleetName
+            AdditionalParameter
+            EngSerialNum
+            EngManufacturer
+            EngModel
+            EngModelYear
+            FuelType
+            Displacement
+            EngAdditionalParameter
+            TransmissonType
+            TransManufacturer
+            TransModel
+            Hybrid
+            DOC
+            TWC
+            SCR
+            PMTrap
             maintainances {
               __typename
               nextToken
             }
             createdAt
             updatedAt
-            owner
           }
           nextToken
         }
@@ -842,24 +1510,46 @@ export class APIService {
         getMaintainance(id: $id) {
           __typename
           id
+          MaintainanceID
           Type
-          vehicleID
+          System
+          Component
+          Comments
           vehicle {
             __typename
             id
             VIN
             Manufacturer
+            ModelYear
+            OdoMiles
+            Region
+            Vocation
+            FleetName
+            AdditionalParameter
+            EngSerialNum
+            EngManufacturer
+            EngModel
+            EngModelYear
+            FuelType
+            Displacement
+            EngAdditionalParameter
+            TransmissonType
+            TransManufacturer
+            TransModel
+            Hybrid
+            DOC
+            TWC
+            SCR
+            PMTrap
             maintainances {
               __typename
               nextToken
             }
             createdAt
             updatedAt
-            owner
           }
           createdAt
           updatedAt
-          owner
         }
       }`;
     const gqlAPIServiceArguments: any = {
@@ -881,20 +1571,42 @@ export class APIService {
           items {
             __typename
             id
+            MaintainanceID
             Type
-            vehicleID
+            System
+            Component
+            Comments
             vehicle {
               __typename
               id
               VIN
               Manufacturer
+              ModelYear
+              OdoMiles
+              Region
+              Vocation
+              FleetName
+              AdditionalParameter
+              EngSerialNum
+              EngManufacturer
+              EngModel
+              EngModelYear
+              FuelType
+              Displacement
+              EngAdditionalParameter
+              TransmissonType
+              TransManufacturer
+              TransModel
+              Hybrid
+              DOC
+              TWC
+              SCR
+              PMTrap
               createdAt
               updatedAt
-              owner
             }
             createdAt
             updatedAt
-            owner
           }
           nextToken
         }
@@ -914,213 +1626,471 @@ export class APIService {
     )) as any;
     return <ListMaintainancesQuery>response.data.listMaintainances;
   }
-  OnCreateVehicleListener(
-    owner: string
-  ): Observable<SubscriptionResponse<OnCreateVehicleSubscription>> {
-    const statement = `subscription OnCreateVehicle($owner: String!) {
-        onCreateVehicle(owner: $owner) {
+  // OnCreateVehicleListener(
+  // ): Observable<
+  //   SubscriptionResponse<Pick<__SubscriptionContainer, "onCreateVehicle">>
+  // > {
+  //   const statement = `subscription OnCreateVehicle() {
+  //       onCreateVehicle() {
+  //         __typename
+  //         id
+  //         VIN
+  //         Manufacturer
+  //         ModelYear
+  //         OdoMiles
+  //         Region
+  //         Vocation
+  //         FleetName
+  //         AdditionalParameter
+  //         EngSerialNum
+  //         EngManufacturer
+  //         EngModel
+  //         EngModelYear
+  //         FuelType
+  //         Displacement
+  //         EngAdditionalParameter
+  //         TransmissonType
+  //         TransManufacturer
+  //         TransModel
+  //         Hybrid
+  //         DOC
+  //         TWC
+  //         SCR
+  //         PMTrap
+  //         maintainances {
+  //           __typename
+  //           items {
+  //             __typename
+  //             id
+  //             MaintainanceID
+  //             Type
+  //             System
+  //             Component
+  //             Comments
+  //             createdAt
+  //             updatedAt
+  //           }
+  //           nextToken
+  //         }
+  //         createdAt
+  //         updatedAt
+  //       }
+  //     }`;
+  //   const gqlAPIServiceArguments: any = {
+  //   };
+  //   return API.graphql(
+  //     graphqlOperation(statement, gqlAPIServiceArguments)
+  //   ) as Observable<
+  //     SubscriptionResponse<Pick<__SubscriptionContainer, "onCreateVehicle">>
+  //   >;
+  // }
+
+  OnCreateVehicleListener: Observable<
+    OnCreateVehicleSubscription
+  > = (API.graphql(
+      graphqlOperation(
+        `subscription OnCreateVehicle {
+          onCreateVehicle {
           __typename
           id
           VIN
           Manufacturer
+          ModelYear
+          OdoMiles
+          Region
+          Vocation
+          FleetName
+          AdditionalParameter
+          EngSerialNum
+          EngManufacturer
+          EngModel
+          EngModelYear
+          FuelType
+          Displacement
+          EngAdditionalParameter
+          TransmissonType
+          TransManufacturer
+          TransModel
+          Hybrid
+          DOC
+          TWC
+          SCR
+          PMTrap
           maintainances {
             __typename
             items {
               __typename
               id
+              MaintainanceID
               Type
-              vehicleID
+              System
+              Component
+              Comments
               createdAt
               updatedAt
-              owner
             }
             nextToken
           }
           createdAt
           updatedAt
-          owner
         }
-      }`;
-    const gqlAPIServiceArguments: any = {
-      owner
-    };
-    return API.graphql(
-      graphqlOperation(statement, gqlAPIServiceArguments)
-    ) as Observable<SubscriptionResponse<OnCreateVehicleSubscription>>;
-  }
+        }`
+      )
+    ) as Observable<any>)
+  .map(x => x.value.data.onCreateVehicle as OnCreateVehicleSubscription);
 
   OnUpdateVehicleListener(
-    owner: string
-  ): Observable<SubscriptionResponse<OnUpdateVehicleSubscription>> {
-    const statement = `subscription OnUpdateVehicle($owner: String!) {
-        onUpdateVehicle(owner: $owner) {
+  ): Observable<
+    SubscriptionResponse<Pick<__SubscriptionContainer, "onUpdateVehicle">>
+  > {
+    const statement = `subscription OnUpdateVehicle() {
+        onUpdateVehicle() {
           __typename
           id
           VIN
           Manufacturer
+          ModelYear
+          OdoMiles
+          Region
+          Vocation
+          FleetName
+          AdditionalParameter
+          EngSerialNum
+          EngManufacturer
+          EngModel
+          EngModelYear
+          FuelType
+          Displacement
+          EngAdditionalParameter
+          TransmissonType
+          TransManufacturer
+          TransModel
+          Hybrid
+          DOC
+          TWC
+          SCR
+          PMTrap
           maintainances {
             __typename
             items {
               __typename
               id
+              MaintainanceID
               Type
-              vehicleID
+              System
+              Component
+              Comments
               createdAt
               updatedAt
-              owner
             }
             nextToken
           }
           createdAt
           updatedAt
-          owner
         }
       }`;
     const gqlAPIServiceArguments: any = {
-      owner
     };
     return API.graphql(
       graphqlOperation(statement, gqlAPIServiceArguments)
-    ) as Observable<SubscriptionResponse<OnUpdateVehicleSubscription>>;
+    ) as Observable<
+      SubscriptionResponse<Pick<__SubscriptionContainer, "onUpdateVehicle">>
+    >;
   }
 
-  OnDeleteVehicleListener(
-    owner: string
-  ): Observable<SubscriptionResponse<OnDeleteVehicleSubscription>> {
-    const statement = `subscription OnDeleteVehicle($owner: String!) {
-        onDeleteVehicle(owner: $owner) {
+  // OnDeleteVehicleListener(
+  // ): Observable<
+  //   SubscriptionResponse<Pick<__SubscriptionContainer, "onDeleteVehicle">>
+  // > {
+  //   const statement = `subscription OnDeleteVehicle() {
+  //       onDeleteVehicle() {
+  //         __typename
+  //         id
+  //         VIN
+  //         Manufacturer
+  //         ModelYear
+  //         OdoMiles
+  //         Region
+  //         Vocation
+  //         FleetName
+  //         AdditionalParameter
+  //         EngSerialNum
+  //         EngManufacturer
+  //         EngModel
+  //         EngModelYear
+  //         FuelType
+  //         Displacement
+  //         EngAdditionalParameter
+  //         TransmissonType
+  //         TransManufacturer
+  //         TransModel
+  //         Hybrid
+  //         DOC
+  //         TWC
+  //         SCR
+  //         PMTrap
+  //         maintainances {
+  //           __typename
+  //           items {
+  //             __typename
+  //             id
+  //             MaintainanceID
+  //             Type
+  //             System
+  //             Component
+  //             Comments
+  //             createdAt
+  //             updatedAt
+  //           }
+  //           nextToken
+  //         }
+  //         createdAt
+  //         updatedAt
+  //       }
+  //     }`;
+  //   const gqlAPIServiceArguments: any = {
+  //   };
+  //   return API.graphql(
+  //     graphqlOperation(statement, gqlAPIServiceArguments)
+  //   ) as Observable<
+  //     SubscriptionResponse<Pick<__SubscriptionContainer, "onDeleteVehicle">>
+  //   >;
+  // }
+
+  OnDeleteVehicleListener: Observable<
+    OnDeleteVehicleSubscription
+  > = (API.graphql(
+      graphqlOperation(
+        `subscription OnDeleteVehicle {
+          onDeleteVehicle {
           __typename
           id
           VIN
           Manufacturer
+          ModelYear
+          OdoMiles
+          Region
+          Vocation
+          FleetName
+          AdditionalParameter
+          EngSerialNum
+          EngManufacturer
+          EngModel
+          EngModelYear
+          FuelType
+          Displacement
+          EngAdditionalParameter
+          TransmissonType
+          TransManufacturer
+          TransModel
+          Hybrid
+          DOC
+          TWC
+          SCR
+          PMTrap
           maintainances {
             __typename
             items {
               __typename
               id
+              MaintainanceID
               Type
-              vehicleID
+              System
+              Component
+              Comments
               createdAt
               updatedAt
-              owner
             }
             nextToken
           }
           createdAt
           updatedAt
-          owner
         }
-      }`;
-    const gqlAPIServiceArguments: any = {
-      owner
-    };
-    return API.graphql(
-      graphqlOperation(statement, gqlAPIServiceArguments)
-    ) as Observable<SubscriptionResponse<OnDeleteVehicleSubscription>>;
-  }
+        }`
+      )
+    ) as Observable<any>)
+  .map(x => x.value.data.onDeleteVehicle as OnDeleteVehicleSubscription);
 
   OnCreateMaintainanceListener(
-    owner: string
-  ): Observable<SubscriptionResponse<OnCreateMaintainanceSubscription>> {
-    const statement = `subscription OnCreateMaintainance($owner: String!) {
-        onCreateMaintainance(owner: $owner) {
+  ): Observable<
+    SubscriptionResponse<Pick<__SubscriptionContainer, "onCreateMaintainance">>
+  > {
+    const statement = `subscription OnCreateMaintainance() {
+        onCreateMaintainance() {
           __typename
           id
+          MaintainanceID
           Type
-          vehicleID
+          System
+          Component
+          Comments
           vehicle {
             __typename
             id
             VIN
             Manufacturer
+            ModelYear
+            OdoMiles
+            Region
+            Vocation
+            FleetName
+            AdditionalParameter
+            EngSerialNum
+            EngManufacturer
+            EngModel
+            EngModelYear
+            FuelType
+            Displacement
+            EngAdditionalParameter
+            TransmissonType
+            TransManufacturer
+            TransModel
+            Hybrid
+            DOC
+            TWC
+            SCR
+            PMTrap
             maintainances {
               __typename
               nextToken
             }
             createdAt
             updatedAt
-            owner
           }
           createdAt
           updatedAt
-          owner
         }
       }`;
     const gqlAPIServiceArguments: any = {
-      owner
     };
     return API.graphql(
       graphqlOperation(statement, gqlAPIServiceArguments)
-    ) as Observable<SubscriptionResponse<OnCreateMaintainanceSubscription>>;
+    ) as Observable<
+      SubscriptionResponse<
+        Pick<__SubscriptionContainer, "onCreateMaintainance">
+      >
+    >;
   }
 
   OnUpdateMaintainanceListener(
-    owner: string
-  ): Observable<SubscriptionResponse<OnUpdateMaintainanceSubscription>> {
-    const statement = `subscription OnUpdateMaintainance($owner: String!) {
-        onUpdateMaintainance(owner: $owner) {
+  ): Observable<
+    SubscriptionResponse<Pick<__SubscriptionContainer, "onUpdateMaintainance">>
+  > {
+    const statement = `subscription OnUpdateMaintainance() {
+        onUpdateMaintainance() {
           __typename
           id
+          MaintainanceID
           Type
-          vehicleID
+          System
+          Component
+          Comments
           vehicle {
             __typename
             id
             VIN
             Manufacturer
+            ModelYear
+            OdoMiles
+            Region
+            Vocation
+            FleetName
+            AdditionalParameter
+            EngSerialNum
+            EngManufacturer
+            EngModel
+            EngModelYear
+            FuelType
+            Displacement
+            EngAdditionalParameter
+            TransmissonType
+            TransManufacturer
+            TransModel
+            Hybrid
+            DOC
+            TWC
+            SCR
+            PMTrap
             maintainances {
               __typename
               nextToken
             }
             createdAt
             updatedAt
-            owner
           }
           createdAt
           updatedAt
-          owner
         }
       }`;
     const gqlAPIServiceArguments: any = {
-      owner
     };
     return API.graphql(
       graphqlOperation(statement, gqlAPIServiceArguments)
-    ) as Observable<SubscriptionResponse<OnUpdateMaintainanceSubscription>>;
+    ) as Observable<
+      SubscriptionResponse<
+        Pick<__SubscriptionContainer, "onUpdateMaintainance">
+      >
+    >;
   }
 
   OnDeleteMaintainanceListener(
-    owner: string
-  ): Observable<SubscriptionResponse<OnDeleteMaintainanceSubscription>> {
-    const statement = `subscription OnDeleteMaintainance($owner: String!) {
-        onDeleteMaintainance(owner: $owner) {
+  ): Observable<
+    SubscriptionResponse<Pick<__SubscriptionContainer, "onDeleteMaintainance">>
+  > {
+    const statement = `subscription OnDeleteMaintainance() {
+        onDeleteMaintainance() {
           __typename
           id
+          MaintainanceID
           Type
-          vehicleID
+          System
+          Component
+          Comments
           vehicle {
             __typename
             id
             VIN
             Manufacturer
+            ModelYear
+            OdoMiles
+            Region
+            Vocation
+            FleetName
+            AdditionalParameter
+            EngSerialNum
+            EngManufacturer
+            EngModel
+            EngModelYear
+            FuelType
+            Displacement
+            EngAdditionalParameter
+            TransmissonType
+            TransManufacturer
+            TransModel
+            Hybrid
+            DOC
+            TWC
+            SCR
+            PMTrap
             maintainances {
               __typename
               nextToken
             }
             createdAt
             updatedAt
-            owner
           }
           createdAt
           updatedAt
-          owner
         }
       }`;
     const gqlAPIServiceArguments: any = {
-      owner
     };
     return API.graphql(
       graphqlOperation(statement, gqlAPIServiceArguments)
-    ) as Observable<SubscriptionResponse<OnDeleteMaintainanceSubscription>>;
+    ) as Observable<
+      SubscriptionResponse<
+        Pick<__SubscriptionContainer, "onDeleteMaintainance">
+      >
+    >;
   }
 }

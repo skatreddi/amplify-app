@@ -1,0 +1,80 @@
+<!-- <h2 *ngIf="editMode">Edit vehicle</h2>
+<h2 *ngIf="!editMode">Add a vehicle</h2>
+
+<form [formGroup]="form">
+    <div>
+        <mat-form-field [style.width.px]="256">
+            <mat-label><span>VIN</span></mat-label>
+            <input matInput type="string" formControlName="VIN">
+        </mat-form-field>
+    </div>
+
+    <div>
+        <mat-form-field [style.width.px]="256">
+            <mat-label><span>Manufacturer</span></mat-label>
+            <textarea matInput formControlName="Manufacturer"></textarea>
+        </mat-form-field>
+    </div>
+
+    <div class="buttonbar">
+        <button *ngIf="!editMode" mat-raised-button color="primary" (click)="add()">Add</button>
+        <button *ngIf="editMode" mat-raised-button color="warn" (click)="delete()">Delete</button>
+        <button *ngIf="editMode" mat-raised-button color="primary" (click)="update()">Update</button>
+    </div>
+</form> -->
+
+<div class="form-body">  
+    <form autocomplete="off" [formGroup]="createForm" (ngSubmit)="onCreate(createForm.value)">
+        <div>
+            <label>VIN: </label>
+            <input type="text" formControlName="VIN" autocomplete="off">
+        </div>
+        <div>
+            <label>Manufacturer: </label>
+            <input type="text" formControlName="Manufacturer" autocomplete="off">
+        </div>
+        <div>
+            <label>Model Year: </label>
+            <input type="text" formControlName="ModelYear" autocomplete="off">
+        </div>
+        <div>
+            <label>Eng Serial Num: </label>
+            <input type="text" formControlName="EngSerialNum" autocomplete="off">
+        </div>
+        <div>
+            <label>Eng Manufacturer: </label>
+            <input type="text" formControlName="EngManufacturer" autocomplete="off">
+        </div>
+        <div>
+            <label>Eng Model: </label>
+            <input type="text" formControlName="EngModel" autocomplete="off">
+        </div>
+        <div>
+            <label>Eng Model Year: </label>
+            <input type="text" formControlName="EngModelYear" autocomplete="off">
+        </div>
+        <div>
+            <label>Transmisson Type: </label>
+            <input type="text" formControlName="TransmissonType" autocomplete="off">
+        </div>
+        <div>
+            <label>Trans Manufacturer: </label>
+            <input type="text" formControlName="TransManufacturer" autocomplete="off">
+        </div>
+        <div>
+            <label>Trans Model: </label>
+            <input type="text" formControlName="TransModel" autocomplete="off">
+        </div>
+        <button type="submit">Submit</button>
+    </form>
+</div>
+<!-- <div class="app-body">
+    <div>
+        <div *ngFor="let vehicle of vehicles">
+            <div><button (click)='onDelete(vehicle)'>Delete</button></div>
+            <div>{{ vehicle.VIN}}</div>
+            <div>{{ vehicle.Manufacturer}}</div>
+            <div>{{ vehicle.ModelYear}}</div>
+        </div>
+    </div>
+</div> -->
