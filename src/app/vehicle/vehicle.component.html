@@ -1,73 +1,358 @@
-<!-- <h2 *ngIf="editMode">Edit vehicle</h2>
-<h2 *ngIf="!editMode">Add a vehicle</h2>
+  <div>
+    <table id = "tablestyle">
+       <thead>
+          <tr>
+             <th>VIN</th>
+             <th>Manufacturer</th>
+             <th>Model Year</th>
+             <th>Odometer Miles</th>
+             <!-- <th>Region</th>
+             <th>Vocation</th>
+             <th>Fleet Name</th>
+             <th>Additional Parameter</th> -->
+             <th>Engine Serial Number</th>
+             <th>Engine Manufacturer</th>
+             <th>Engine Model</th>
+             <th>Engine Model Year</th>
+             <!-- <th>Fuel Type</th>
+             <th>Displacement</th>
+             <th>Engine Additional Parameter</th> -->
+             <th>Transmission Type</th>
+             <th>Tansmission Manufacturer</th>
+             <th>Transmission Model</th> 
+             <!-- <th>Hybrid</th>
+             <th>DOC</th>
+             <th>TWC</th>
+             <th>SCR</th>
+             <th>PMTrap</th> -->
+             <th>Operation</th>
+          </tr>
+       </thead>
+       <tbody>
+          <tr *ngFor="let vehicle of vehicles">
+             <td>{{ vehicle.VIN }}</td>
+             <td>{{ vehicle.Manufacturer }}</td>
+             <td>{{ vehicle.ModelYear }}</td>
+             <td>{{ vehicle.OdoMiles}}</td>
+             <!-- <td>{{ vehicle.Region }}</td>
+             <td>{{ vehicle.Vocation }}</td>
+             <td>{{ vehicle.FleetName }}</td>
+             <td>{{ vehicle.AdditionalParameter}}</td> -->
+             <td>{{ vehicle.EngSerialNum }}</td>
+             <td>{{ vehicle.EngManufacturer }}</td>
+             <td>{{ vehicle.EngModel }}</td>
+             <td>{{ vehicle.EngModelYear }}</td>
+             <!-- <td>{{ vehicle.FuelType }}</td>
+             <td>{{ vehicle.Displacement}}</td>
+             <td>{{ vehicle.EngAdditionalParameter }}</td> -->
+             <td>{{ vehicle.TransmissonType }}</td>
+             <td>{{ vehicle.TransManufacturer }}</td>
+             <td>{{ vehicle.TransModel}}</td>
+             <!-- <td>{{ vehicle.Hybrid }}</td>
+             <td>{{ vehicle.DOC }}</td>
+             <td>{{ vehicle.TWC }}</td>
+             <td>{{ vehicle.SCR }}</td>
+             <td>{{ vehicle.PMTrap }}</td> -->
 
-<form [formGroup]="form">
-    <div>
-        <mat-form-field [style.width.px]="256">
-            <mat-label><span>VIN</span></mat-label>
-            <input matInput type="string" formControlName="VIN">
-        </mat-form-field>
+             <td>
+                <button type="button" class="btn btn-primary" (click)="onEdit(vehicle)">Edit</button>
+                <button type="button" class="btn btn-primary" (click)="onDelete(vehicle)">Delete</button>
+             </td>
+          </tr>
+       </tbody>
+    </table>
+    <br>
+    <div *ngIf="addNewButton">
+        <button type="submit" class="btn btn-primary" (click)="onNew()">Add New Vehicle</button>
     </div>
+ </div>
+ <br>
+ <!-- <h1 *ngIf="isAddMode">Add Vehicle</h1>
+ <h1 *ngIf="!isAddMode">Edit Vehicle</h1> -->
+ <div class="form-body" *ngIf="showNew">  
+    <form autocomplete="off" [formGroup]="vehicleForm" (ngSubmit)="onSave(vehicleForm.value)">
+        <h5><b>Vehicle Information</b></h5>
+        <br>
+        <div class="form-row">
+            <div class="form-group col">
+                <label>Id</label>
+                <input type="text" formControlName="id" class="form-control" autocomplete="off" />
+            </div>
+            <div class="form-group col">
+                <label>VIN</label>
+                <input type="text" formControlName="VIN" class="form-control" autocomplete="off"/>
+                <!-- <div *ngIf="submitted && f.VIN.errors" class="invalid-feedback">
+                    <div *ngIf="f.VIN.errors.required">VIN is required</div>
+                </div> -->
+            </div>
+            <div class="form-group col">
+                <label>Manufacturer</label>
+                <input type="text" formControlName="Manufacturer" class="form-control" autocomplete="off" />
+                <!-- <div *ngIf="submitted && f.Manufacturer.errors" class="invalid-feedback">
+                    <div *ngIf="f.Manufacturer.errors.required">Manufacturer is required</div>
+                </div> -->
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col">
+                <label>Model Year</label>
+                <input type="text" formControlName="ModelYear" class="form-control" autocomplete="off" />
+                <!-- <div *ngIf="submitted && f.ModelYear.errors" class="invalid-feedback">
+                    <div *ngIf="f.ModelYear.errors.required">Model Year is required</div>
+                </div> -->
+            </div>
+            <div class="form-group col">
+                <label>Odometer Miles</label>
+                <input type="text" formControlName="OdoMiles" class="form-control" autocomplete="off" />
+            </div>
+            <div class="form-group col">
+                <label>Region</label>
+                <input type="text" formControlName="Region" class="form-control" autocomplete="off" />
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col">
+                <label>Vocation</label>
+                <input type="text" formControlName="Vocation" class="form-control" autocomplete="off" />
+            </div>
+            <div class="form-group col">
+                <label>Fleet Name</label>
+                <input type="text" formControlName="FleetName" class="form-control" autocomplete="off" />
+            </div>
+            <div class="form-group col">
+                <label>Additional Parameter</label>
+                <input type="text" formControlName="AdditionalParameter" class="form-control" autocomplete="off" />
+            </div>
+        </div>
+        <mat-divider></mat-divider>
+        <br>
+        <h5><b>Engine Information</b></h5>
+        <br>
+        <div class="form-row">
+            <div class="form-group col">
+                <label>Engine Serial Number</label>
+                <input type="text" formControlName="EngSerialNum" class="form-control" autocomplete="off">
+                <!-- <div *ngIf="submitted && f.EngSerialNum.errors" class="invalid-feedback">
+                    <div *ngIf="f.EngSerialNum.errors.required">Engine Serial Number is required</div>
+                </div> -->
+            </div>
+            <div class="form-group col">
+                <label>Engine Manufacturer</label>
+                <input type="text" formControlName="EngManufacturer" class="form-control" autocomplete="off" />
+                <!-- <div *ngIf="submitted && f.EngManufacturer.errors" class="invalid-feedback">
+                    <div *ngIf="f.EngManufacturer.errors.required">Engine Manufacturer is required</div>
+                </div> -->
+            </div>
+            <div class="form-group col">
+                <label>Engine Model</label>
+                <input type="text" formControlName="EngModel" class="form-control" autocomplete="off" />
+                <!-- <div *ngIf="submitted && f.EngModel.errors" class="invalid-feedback">
+                    <div *ngIf="f.EngModel.errors.required">Engine Model is required</div>
+                </div> -->
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col">
+                <label>Engine Model Year</label>
+                <input type="text" formControlName="EngModelYear" class="form-control" autocomplete="off">
+            </div>
+            <div class="form-group col">
+                <label for="fueltype">Fuel Type</label>
+                <input type="text" formControlName="FuelType" class="form-control" autocomplete="off">
+                <!-- <select id="fueltype" name="fueltype">
+                    <option value=""></option>
+                    <option value="Diesel">Diesel</option>
+                    <option value="Gasoline">Gasoline</option>
+                </select> -->
+            </div>
+            <div class="form-group col">
+                <label>Displacement</label>
+                <input type="text" formControlName="Displacement" class="form-control" autocomplete="off" />
+            </div>
+            <div class="form-group col">
+                <label>Engine Additional Parameter</label>
+                <input type="text" formControlName="EngAdditionalParameter" class="form-control" autocomplete="off" />
+            </div>
+        </div>
+        <mat-divider></mat-divider>
+        <br>
+        <h5><b>Transmission Details</b></h5>
+        <br>
+        <div class="form-row">
+            <div class="form-group col">
+                <label for="transtype">Transmission Type</label>
+                <input type="text" formControlName="TransmissonType" class="form-control" autocomplete="off">
+                <!-- <select id="transtype" name="transtype">
+                    <option value=""></option>
+                    <option value="Manual">Manual</option>
+                    <option value="Automatic">Automatic</option>
+                </select> -->
+            </div>
+            <div class="form-group col">
+                <label>Transmission Manufacturer</label>
+                <input type="text" formControlName="TransManufacturer" class="form-control" autocomplete="off" />
+                <!-- <div *ngIf="submitted && f.TransManufacturer.errors" class="invalid-feedback">
+                    <div *ngIf="f.TransManufacturer.errors.required">Transmission Manufacturer is required</div>
+                </div> -->
+            </div>
+            <div class="form-group col">
+                <label>Transmission Model</label>
+                <input type="text" formControlName="TransModel" class="form-control" autocomplete="off" />
+                <!-- <div *ngIf="submitted && f.TransModel.errors" class="invalid-feedback">
+                    <div *ngIf="f.TransModel.errors.required">Transmission Model is required</div>
+                </div> -->
+            </div>
+            <div class="form-group col">
+                <label>Hybrid</label>
+                <input type="radio" formControlName="Hybrid" class="form-control" autocomplete="off">
+            </div>
+        </div>
+        <mat-divider></mat-divider>
+        <br>
+        <h5><b>Aftertreatment</b></h5>
+        <br>
+        <div class="form-row">
+            <div class="form-group col">
+                <label>DOC</label>
+                <input type="radio" formControlName="DOC" class="form-control" autocomplete="off">
+            </div>
+            <div class="form-group col">
+                <label>TWC</label>
+                <input type="radio" formControlName="TWC" class="form-control" autocomplete="off">
+            </div>
+            <div class="form-group col">
+                <label>SCR</label>
+                <input type="radio" formControlName="SCR" class="form-control" autocomplete="off">
+            </div>
+            <div class="form-group col">
+                <label>PMTrap</label>
+                <input type="radio" formControlName="PMTrap" class="form-control" autocomplete="off">
+            </div>
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary">{{submitType}}</button>
+            <button type="submit" class="btn btn-primary" (click)="onCancel()">Cancel</button>
+            <!-- <button [disabled]="loading" class="btn btn-primary">
+                <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+                Save
+            </button>
+            <a routerLink="/vehicles" class="btn btn-link">Cancel</a> -->
+        </div>
+    </form>
+</div>
+ 
 
-    <div>
-        <mat-form-field [style.width.px]="256">
-            <mat-label><span>Manufacturer</span></mat-label>
-            <textarea matInput formControlName="Manufacturer"></textarea>
-        </mat-form-field>
-    </div>
-
-    <div class="buttonbar">
-        <button *ngIf="!editMode" mat-raised-button color="primary" (click)="add()">Add</button>
-        <button *ngIf="editMode" mat-raised-button color="warn" (click)="delete()">Delete</button>
-        <button *ngIf="editMode" mat-raised-button color="primary" (click)="update()">Update</button>
-    </div>
-</form> -->
-
-<div class="form-body">  
-    <form autocomplete="off" [formGroup]="createForm" (ngSubmit)="onCreate(createForm.value)">
-        <div>
+<!-- <div class="form-body" *ngIf="showNew">   -->
+    <!-- <form autocomplete="off" [formGroup]="vehicleForm" (ngSubmit)="onCreate(vehicleForm.value)"> -->
+    <!-- <form autocomplete="off" [formGroup]="vehicleForm" (ngSubmit)="onSave(vehicleForm.value)">
+        <div class="form-group">
+            <label>Id: </label>
+            <input type="text" formControlName="id" autocomplete="off">
+        </div>
+        <div class="form-group">
             <label>VIN: </label>
             <input type="text" formControlName="VIN" autocomplete="off">
         </div>
-        <div>
+        <div class="form-group">
             <label>Manufacturer: </label>
             <input type="text" formControlName="Manufacturer" autocomplete="off">
         </div>
-        <div>
+        <div class="form-group">
             <label>Model Year: </label>
             <input type="text" formControlName="ModelYear" autocomplete="off">
         </div>
-        <div>
+        <div class="form-group">
+            <label>Odometer Miles: </label>
+            <input type="text" formControlName="OdoMiles" autocomplete="off">
+        </div>
+        <div class="form-group">
+            <label>Region: </label>
+            <input type="text" formControlName="Region" autocomplete="off">
+        </div>
+        <div class="form-group">
+            <label>Vocation: </label>
+            <input type="text" formControlName="Vocation" autocomplete="off">
+        </div>
+        <div class="form-group">
+            <label>Fleet Name: </label>
+            <input type="text" formControlName="FleetName" autocomplete="off">
+        </div>
+        <div class="form-group">
+            <label>Additional Parameter: </label>
+            <input type="text" formControlName="AdditionalParameter" autocomplete="off">
+        </div>
+        <div class="form-group">
             <label>Eng Serial Num: </label>
             <input type="text" formControlName="EngSerialNum" autocomplete="off">
         </div>
-        <div>
+        <div class="form-group">
             <label>Eng Manufacturer: </label>
             <input type="text" formControlName="EngManufacturer" autocomplete="off">
         </div>
-        <div>
+        <div class="form-group">
             <label>Eng Model: </label>
             <input type="text" formControlName="EngModel" autocomplete="off">
         </div>
-        <div>
+        <div class="form-group">
             <label>Eng Model Year: </label>
             <input type="text" formControlName="EngModelYear" autocomplete="off">
         </div>
-        <div>
-            <label>Transmisson Type: </label>
-            <input type="text" formControlName="TransmissonType" autocomplete="off">
+        <div class="form-group">
+            <label for="fueltype">Fuel Type</label>
+            <select id="fueltype" name="fueltype">
+                <option value=""></option>
+                <option value="diesel">Diesel</option>
+                <option value="gasoline">Gasoline</option>
+            </select>
         </div>
-        <div>
+        <div class="form-group">
+            <label>Displacement: </label>
+            <input type="text" formControlName="Displacement" autocomplete="off">
+        </div>
+        <div class="form-group">
+            <label>Eng Additional Parameter: </label>
+            <input type="text" formControlName="EngAdditionalParameter" autocomplete="off">
+        </div>
+        <div class="form-group">
+            <label for="transtype">Transmission Type</label>
+            <select id="transtype" name="transtype">
+                <option value=""></option>
+                <option value="manual">Manual</option>
+                <option value="auto">Automatic</option>
+            </select>
+        </div>
+        <div class="form-group">
             <label>Trans Manufacturer: </label>
             <input type="text" formControlName="TransManufacturer" autocomplete="off">
         </div>
-        <div>
+        <div class="form-group">
             <label>Trans Model: </label>
             <input type="text" formControlName="TransModel" autocomplete="off">
         </div>
-        <button type="submit">Submit</button>
+        <div class="form-group">
+            <label>Hybrid: </label>
+            <input type="text" formControlName="Hybrid" autocomplete="off">
+        </div>
+        <div class="form-group">
+            <label>DOC: </label>
+            <input type="text" formControlName="DOC" autocomplete="off">
+        </div>
+        <div class="form-group">
+            <label>TWC: </label>
+            <input type="text" formControlName="TWC" autocomplete="off">
+        </div>
+        <div class="form-group">
+            <label>SCR: </label>
+            <input type="text" formControlName="SCR" autocomplete="off">
+        </div>
+        <div class="form-group">
+            <label>PMTrap: </label>
+            <input type="text" formControlName="PMTrap" autocomplete="off">
+        </div>
+        <button type="submit" class="btn btn-primary">{{submitType}}</button>
+        <button type="submit" class="btn btn-primary" (click)="onCancel()">Cancel</button>
     </form>
-</div>
+</div> -->
 <!-- <div class="app-body">
     <div>
         <div *ngFor="let vehicle of vehicles">

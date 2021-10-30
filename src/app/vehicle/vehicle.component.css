@@ -1,3 +1,38 @@
 .buttonbar > button {
     margin: 0 8px;
 }
+
+#tablestyle {
+    /* font-family: Arial, Helvetica, sans-serif; */
+    border-collapse: collapse;
+    width: 100%;
+  }
+  
+  #tablestyle td, #tablestyle th {
+    border: 1px solid #ddd;
+    padding: 8px;
+  }
+  
+  #tablestyle tr:nth-child(even){background-color: #f2f2f2;}
+  
+  #tablestyle tr:hover {background-color: #ddd;}
+  
+  #tablestyle th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #002b5c;
+    color: white;
+  }
+
+  input, select {
+    display:block;
+    width:50%;
+    margin:5px 0;
+    padding:5px;
+  }
+
+  .btn{
+    background-color: #002b5c;
+  }
+

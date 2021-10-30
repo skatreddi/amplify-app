@@ -33,6 +33,7 @@ query GetVehicle($id: ID!) {
         System
         Component
         Comments
+        vehicleID
         createdAt
         updatedAt
         owner
@@ -93,6 +94,7 @@ query GetMaintainance($id: ID!) {
     System
     Component
     Comments
+    vehicleID
     vehicle {
       id
       VIN
@@ -143,6 +145,7 @@ query ListMaintainances(
       System
       Component
       Comments
+      vehicleID
       vehicle {
         id
         VIN

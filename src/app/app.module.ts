@@ -86,7 +86,7 @@ const routes: Routes = [
     MatSelectModule,
     MatSidenavModule,
     MatMenuModule,
-    HttpClientModule,
+    HttpClientModule
   ],
   providers: [
     AppsyncService

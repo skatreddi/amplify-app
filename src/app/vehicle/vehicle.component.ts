@@ -1,128 +1,253 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl, FormGroupName } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
-import gql from "graphql-tag";
-import Auth from '@aws-amplify/auth';
-import API from '@aws-amplify/api';
-import PubSub from '@aws-amplify/pubsub';
-
-import { APIService } from 'src/app/API.service';
-import { AppsyncService } from '../appsync.service';
-// import { createVehicle } from 'src/graphql/mutations';
-// import { listVehicles } from 'src/graphql/queries';
-// import { createVehicleInput } from 'src/graphql/inputs';
-// import { buildMutation } from "aws-appsync";
-import { Vehicle } from './../types/vehicle'
-
+import { APIService, GetVehicleQuery, Vehicle, UpdateVehicleInput, DeleteVehicleInput } from 'src/app/doeapp.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'vehicle',
   templateUrl: './vehicle.component.html',
   styleUrls: ['./vehicle.component.css']
 })
-export class VehicleComponent implements OnInit {
-  vehicles!: Array<Vehicle>;
-  // loading = true;
-  public createForm!: FormGroup;
+export class VehicleComponent implements OnInit{
+  public vehicleForm!: FormGroup;
+  public vehicles: Array<Vehicle> = [];
+  showNew: Boolean = false;
+  addNewButton: Boolean = true;
+  submitType: string = 'Save';
+  fueltypes = ["Gas", "Diesel"];
+  transtypes = ["Manual", "Automatic"];
   
+    
   constructor(
-    private route: ActivatedRoute,
-    private router: Router,
     private api: APIService,
-    private fb: FormBuilder) { 
-      Auth.currentAuthenticatedUser().then(console.log)
+    private fb: FormBuilder,
+    private router:Router) { 
+      this.vehicleForm = this.fb.group({
+        'id': ['', Validators.required],
+        'VIN': ['', Validators.required],
+        'Manufacturer': ['', Validators.required],
+        'ModelYear': ['', Validators.required],
+        'OdoMiles': ['', Validators.nullValidator],
+        'Region': ['', Validators.nullValidator],
+        'Vocation': ['', Validators.nullValidator],
+        'FleetName': ['', Validators.nullValidator],
+        'AdditionalParameter': ['', Validators.nullValidator],
+        'EngSerialNum': ['', Validators.required],
+        'EngManufacturer': ['', Validators.required],
+        'EngModel': ['', Validators.required],
+        'EngModelYear': ['', Validators.required],
+        'FuelType': ['', Validators.nullValidator],
+        'Displacement': ['', Validators.nullValidator],
+        'EngAdditionalParameter': ['', Validators.nullValidator],
+        'TransmissonType': ['', Validators.required],
+        'TransManufacturer': ['', Validators.required],
+        'TransModel': ['', Validators.required],
+        'Hybrid': ['', Validators.nullValidator],
+        'DOC': ['', Validators.nullValidator],
+        'TWC': ['', Validators.nullValidator],
+        'SCR': ['', Validators.nullValidator],
+        'PMTrap': ['', Validators.nullValidator],
+       });
+      }
+      
+
+    // private subscription: Subscription | null = null;
+    async ngOnInit(){
+        /* fetch vehicles when app loads */
+      this.api.ListVehicles().then((event) => {
+        this.vehicles = event.items as Vehicle[];
+      });
+    }
+      
+    onNew(){
+      this.vehicleForm.reset();
+      this.submitType = 'Save';
+      this.showNew = true;
+      this.addNewButton = false;
     }
 
-  ngOnInit() {
-    this.createForm = this.fb.group({
-      'VIN': ['', Validators.required],
-      'Manufacturer': ['', Validators.required],
-      'ModelYear': ['', Validators.required],
-      'EngSerialNum': ['', Validators.required],
-      'EngManufacturer': ['', Validators.required],
-      'EngModel': ['', Validators.required],
-      'EngModelYear': ['', Validators.required],
-      'TransmissonType': ['', Validators.required],
-      'TransManufacturer': ['', Validators.required],
-      'TransModel': ['', Validators.required]
-    });
-
-    // this.loading = true;
-
-    // this.api.ListVehicles().then(event => {
-    //   // debugger;
-    //   // this.loading = false;
-    //   this.vehicles = event.items;
-    // });
-
-    this.api.OnCreateVehicleListener.subscribe( (event: any) => {
-      const newVehicle = event.value.data.onCreateVehicle;
-      this.vehicles = [newVehicle, ...this.vehicles];
-    });
-    this.api.OnDeleteVehicleListener.subscribe( (event: any) => {
-      const deletedVehicle = event.value.data.OnDeleteVehicle
-      if (deletedVehicle) {
-        this.vehicles = this.vehicles.filter((v) => v.id != deletedVehicle.id);
+    onSave(vehicle: Vehicle) {
+      if (this.submitType === 'Save'){
+        debugger
+        this.api
+          .CreateVehicle(vehicle)
+          .then((event) => {
+            console.log("item created!");
+            // this.vehicleForm.reset();
+          })
+          .catch((e) => {
+            console.log("error creating vehicle...", e);
+          });
+      } else {
+        this.api
+        .UpdateVehicle(vehicle)
+        .then((event) => {
+          console.log("item updated!");
+          // this.vehicleForm.reset();
+        })
+        .catch((e) => {
+          console.log("error updating vehicle...", e);
+        });
       }
-    });
-  }
+      this.showNew = false;
+      this.addNewButton = true;
+      this.vehicleForm.reset();
+      // this.ngOnInit
+    }
 
-  public onCreate(vehicle: any){
-    this.api.CreateVehicle(vehicle).then(event => {
-      console.log('item created');
-      this.createForm.reset();
-    })
-    .catch(e => {
-      console.log('error creating vehicle...', e)
-    });
-  }
+    onEdit(vehicle: Vehicle){
+      this.showNew = true;
+      this.submitType = 'Update';
+      this.addNewButton = false;
+      // this.api.GetVehicle(vehicle.id)
+      this.vehicleForm.setValue({'id': vehicle.id, 
+                                  'VIN': vehicle.VIN, 
+                                  'Manufacturer': vehicle.Manufacturer,
+                                  'ModelYear': vehicle.ModelYear, 
+                                  'OdoMiles': vehicle.OdoMiles, 
+                                  'Region': vehicle.Region,
+                                  'Vocation': vehicle.Vocation, 
+                                  'FleetName': vehicle.FleetName,
+                                  'AdditionalParameter': vehicle.AdditionalParameter,
+                                  'EngSerialNum': vehicle.EngSerialNum,
+                                  'EngManufacturer': vehicle.EngManufacturer,
+                                  'EngModel': vehicle.EngModel,
+                                  'EngModelYear': vehicle.EngModelYear,
+                                  'FuelType': vehicle.FuelType,
+                                  'Displacement': vehicle.Displacement,
+                                  'EngAdditionalParameter': vehicle.EngAdditionalParameter,
+                                  'TransmissonType': vehicle.TransmissonType,
+                                  'TransManufacturer': vehicle.TransManufacturer,
+                                  'TransModel': vehicle.TransModel,
+                                  'Hybrid': vehicle.Hybrid,
+                                  'DOC': vehicle.DOC,
+                                  'TWC': vehicle.TWC,
+                                  'SCR': vehicle.SCR,
+                                  'PMTrap': vehicle.PMTrap})
+    }
 
-  public onDelete(vehicle: any){
-    const { id } = vehicle;
-    const v = { id };
-    this.api.DeleteVehicle(v).then(event => {
-      console.log('item deleted');
-      this.vehicles = this.vehicles.filter((v) => v.id != vehicle.id)
-    })
-    .catch(e => {
-      console.log('error deleting vehicle...', e)
-    });
-  }
+    onDelete(vehicle: DeleteVehicleInput) {
+      debugger
+      this.api
+      .DeleteVehicle(vehicle)
+        .then((event) => {
+          console.log("item deleted!");
+        })
+        .catch((e) => {
+          console.log("error deleting vehicle...", e);
+        });
+    }
+
+    onCancel(){
+      this.showNew = false;
+      this.addNewButton = true;
+    }
 }
 
-  //   this.route.params.subscribe(params => {
-  //     this.editMode = 'id' in params;
-  //     if (this.editMode) {
-  //      this.loadVehicle(params['id']);
-  //     }
-  //   })
-  // }
+// export class VehicleComponent implements OnInit{
+//   public createForm!: FormGroup;
+//   showNew: Boolean = false;
 
-  // loadVehicle(id: string) {
-  //   this.api.GetVehicle(id).then((vehicle: GetVehicleQuery) => {
-  //     this.form.patchValue({
-  //       id: vehicle.id,
-  //       vin: vehicle.VIN,
-  //       manufacturer: vehicle.Manufacturer
-  //     })
-  //   });
-  // }
+//   /* declare vehicles variable */
+//   public vehicles: Array<Vehicle> = [];
   
-  // add() {
-  //   this.api.CreateVehicle(this.form.value).then(() => {
-  //     this.router.navigate(['vehicles']);
-  //   })
-  // }
+//   constructor(
+//     private api: APIService,
+//     private fb: FormBuilder) { 
+//       this.createForm = this.fb.group({
+//         'id': ['', Validators.required],
+//         'VIN': ['', Validators.required],
+//         'Manufacturer': ['', Validators.required],
+//         'ModelYear': ['', Validators.required],
+//         'OdoMiles': ['', Validators.nullValidator],
+//         'Region': ['', Validators.nullValidator],
+//         'Vocation': ['', Validators.nullValidator],
+//         'FleetName': ['', Validators.nullValidator],
+//         'AdditionalParameter': ['', Validators.nullValidator],
+//         'EngSerialNum': ['', Validators.required],
+//         'EngManufacturer': ['', Validators.required],
+//         'EngModel': ['', Validators.required],
+//         'EngModelYear': ['', Validators.required],
+//         'FuelType': ['', Validators.nullValidator],
+//         'Displacement': ['', Validators.nullValidator],
+//         'EngAdditionalParameter': ['', Validators.nullValidator],
+//         'TransmissonType': ['', Validators.required],
+//         'TransManufacturer': ['', Validators.required],
+//         'TransModel': ['', Validators.required],
+//         'Hybrid': ['', Validators.nullValidator],
+//         'DOC': ['', Validators.nullValidator],
+//         'TWC': ['', Validators.nullValidator],
+//         'SCR': ['', Validators.nullValidator],
+//         'PMTrap': ['', Validators.nullValidator],
+//        });
+//       }
 
-  // update() {
-  //   this.api.UpdateVehicle(this.form.value).then(() => {
-  //     this.router.navigate(['vehicles']);
-  //   })
-  // }
-
-  // delete() {
-  //   this.api.DeleteVehicle({ id: this.form.value['id']}).then(() => {
-  //     this.router.navigate(['Vehicle']);
-  //   })
+//     // private subscription: Subscription | null = null;
+//     async ngOnInit(){
+//       /* fetch vehicles when app loads */
+//     this.api.ListVehicles().then((event) => {
+//       this.vehicles = event.items as Vehicle[];
+//     });
 //   }
+      
+//     // /* subscribe to new restaurants being created */
+//     // this.subscription = <Subscription>(
+//     //   this.api.OnCreateVehicleListener.subscribe((event: any) => {
+//     //     const newVehicle = event.value.data.onCreateVehicle;
+//     //     this.vehicles = [newVehicle, ...this.vehicles];
+//     //   })
+//     // );
+//     // }
+//     // ngOnDestroy() {
+//     //   if (this.subscription) {
+//     //     this.subscription.unsubscribe();
+//     //   }
+//     //   this.subscription = null;
+//     // }
+
+//     public onNew(){
+//       this.showNew = true;
+//     }
+
+//     public onCreate(vehicle: Vehicle) {
+//         this.api
+//           .CreateVehicle(vehicle)
+//           .then((event) => {
+//             console.log("item created!");
+//             this.createForm.reset();
+//           })
+//           .catch((e) => {
+//             console.log("error creating vehicle...", e);
+//           });
+//       }
+
+//     public onEdit(vehicle: Vehicle) {
+//       this.api
+//         .UpdateVehicle(vehicle)
+//         .then((event) => {
+//           console.log("item updated!");
+//           this.createForm.reset();
+//         })
+//         .catch((e) => {
+//           console.log("error updating vehicle...", e);
+//         });
+//     }
+
+//     public onDelete(vehicle: Vehicle) {
+//       this.api
+//         .DeleteVehicle(vehicle)
+//         .then((event) => {
+//           console.log("item deleted!");
+//           this.createForm.reset();
+//         })
+//         .catch((e) => {
+//           console.log("error deleting vehicle...", e);
+//         });
+//     }
+
+//     public onCancel(){
+//       this.showNew = false;
+//     }
 // }
+    
+  
